@@ -22,4 +22,8 @@ public class AddressEntity extends BaseEntity<Long> {
 
     @Column(name = "COUNTRY", nullable = false)
     private String country;
+
+    @OneToOne
+    @JoinColumn(name = "EMPLOYER_ID", nullable = false)
+    private EmployerEntity employer;
 }

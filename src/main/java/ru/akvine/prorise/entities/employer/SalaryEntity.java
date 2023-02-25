@@ -1,7 +1,6 @@
 package ru.akvine.prorise.entities.employer;
 
 import lombok.Data;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import ru.akvine.prorise.entities.BaseEntity;
 
@@ -27,6 +26,5 @@ public class SalaryEntity extends BaseEntity<Long> {
 
     @OneToOne
     @JoinColumn(name = "EMPLOYER_ID", nullable = false)
-    @ToString.Exclude
     private EmployerEntity employer;
 }

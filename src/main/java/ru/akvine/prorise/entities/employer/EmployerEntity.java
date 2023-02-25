@@ -39,12 +39,4 @@ public class EmployerEntity extends BaseEntity<Long> {
     @Column(name = "EMPLOYER_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
     private EmployerType type;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SALARY_ID", nullable = false)
-    private SalaryEntity salary;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "EMPLOYER_ID", nullable = false)
-    private AddressEntity address;
 }

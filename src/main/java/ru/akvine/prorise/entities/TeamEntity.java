@@ -21,11 +21,11 @@ public class TeamEntity extends BaseEntity<Long> {
     private Long id;
 
     @OneToMany
-    @JoinColumn(name = "EMPLOYER_ID", nullable = false)
+    @JoinColumn(name = "TEAM_ID", nullable = false)
     private List<EmployerEntity> employers;
 
     @OneToMany
-    @JoinColumn(name = "PROJECT_ID", nullable = false)
+    @JoinColumn(name = "TEAM_ID", nullable = false)
     private List<ProjectEntity> projects;
 
     @Nullable

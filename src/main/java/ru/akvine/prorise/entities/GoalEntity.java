@@ -22,7 +22,7 @@ public class GoalEntity extends BaseEntity<Long> {
     private String description;
 
     @OneToMany
-    @JoinColumn(name = "TASK_ID", nullable = false)
+    @JoinColumn(name = "GOAL_ID", nullable = false)
     private List<TaskEntity> tasks;
 
     @Column(name = "IS_DONE", nullable = false)

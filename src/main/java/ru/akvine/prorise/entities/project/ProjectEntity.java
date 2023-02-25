@@ -37,7 +37,7 @@ public class ProjectEntity extends BaseEntity<Long> {
     private ProjectType type;
 
     @OneToMany
-    @JoinColumn(name = "GOAL_ID", nullable = false)
+    @JoinColumn(name = "PROJECT_ID", nullable = false)
     private List<GoalEntity> goals;
 
     @Column(name = "IS_DONE", nullable = false)
