@@ -1,4 +1,4 @@
-package ru.akvine.prorise.service;
+package ru.akvine.prorise.tech;
 
 import org.springframework.stereotype.Component;
 
