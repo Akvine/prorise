@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "DEPARTMENT_TYPE")
 @Data
 @Accessors(chain = true)
-public class DepartmentEntityType extends BaseEntity<Long> {
+public class DepartmentTypeEntity extends BaseEntity<Long> {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentTypeSeq")
@@ -19,6 +19,9 @@ public class DepartmentEntityType extends BaseEntity<Long> {
 
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
+
+    @Column(name = "CODE", nullable = false)
+    private String code;
 
     @Column(name = "TYPE")
     @Enumerated(EnumType.STRING)

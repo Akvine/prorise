@@ -24,7 +24,7 @@ public abstract class BaseController<D extends BaseDto, B extends BaseBean> {
         return getConverter().convertToListResponse(list);
     }
 
-    @GetMapping
+    @GetMapping(value = "/get")
     public Response get(@RequestBody @Valid UuidRequest request) {
         BaseBean beanToGet = getConverter().convertRequestToBean(request);
         BaseBean bean = getService().get(beanToGet);

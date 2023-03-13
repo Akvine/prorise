@@ -25,7 +25,7 @@ public class DepartmentEntity extends BaseEntity<Long> {
 
     @OneToOne
     @JoinColumn(name = "DEPARTMENT_TYPE_ID", nullable = false)
-    private DepartmentEntityType departmentType;
+    private DepartmentTypeEntity departmentType;
 
     @Nullable
     @Column(name = "DESCRIPTION")

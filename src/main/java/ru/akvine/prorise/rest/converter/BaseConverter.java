@@ -48,14 +48,14 @@ public abstract class BaseConverter<D extends BaseDto, B extends BaseBean> {
     private D convertBaseBeanToDto(B bean) {
         Preconditions.checkNotNull(bean, "bean is null");
 
-        D dto = convertBaseBeanToDto(bean);
+        D dto = convertBeanToDto(bean);
         dto.setUuid(bean.getUuid());
         dto.setCreatedDate(bean.getCreatedDate());
         dto.setUpdatedDate(bean.getUpdatedDate());
         return dto;
     }
 
-    protected abstract D convertDtoToBean(B bean);
+    protected abstract D convertBeanToDto(B bean);
     protected abstract B convertDtoToBean(D dto);
     protected abstract B createEmptyBean();
 }

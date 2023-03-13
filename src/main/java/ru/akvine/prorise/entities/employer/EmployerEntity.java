@@ -1,6 +1,7 @@
 package ru.akvine.prorise.entities.employer;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.BaseEntity;
@@ -8,6 +9,7 @@ import ru.akvine.prorise.entities.BaseEntity;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "EMPLOYER")
 @Accessors(chain = true)

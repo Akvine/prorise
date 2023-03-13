@@ -1,6 +1,8 @@
 package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import ru.akvine.prorise.entities.BaseEntity;
 import ru.akvine.prorise.exceptions.BaseEntityAlreadyFoundException;
@@ -8,13 +10,22 @@ import ru.akvine.prorise.exceptions.BaseEntityNotFoundException;
 import ru.akvine.prorise.repositories.BaseRepository;
 import ru.akvine.prorise.service.dto.BaseBean;
 import ru.akvine.prorise.service.dto.BaseFilter;
+import ru.akvine.prorise.tech.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public abstract class BaseService<B extends BaseBean, E extends BaseEntity> {
+    private final UuidGenerator uuidGenerator;
+
+    @Value("${uuid.generator.length}")
+    private int length;
+    @Value("${uuid.generator.target}")
+    private String target;
+
     public <F extends BaseFilter> List<B> list(F filter) {
         Preconditions.checkNotNull(filter, "filter is null");
         return findEntityList(filter)
@@ -109,6 +120,6 @@ public abstract class BaseService<B extends BaseBean, E extends BaseEntity> {
     protected abstract BaseEntityAlreadyFoundException createAlreadyFoundException(B bean);
 
     protected String generateUuid() {
-        return "Uuid stub";
+        return uuidGenerator.generate(length, target);
     }
 }
