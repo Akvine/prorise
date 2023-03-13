@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class ProjectBean extends BaseBean<Long> {
-    private LocalDate startedDate;
+    private LocalDate startDate;
     @Nullable
     private LocalDate endDate;
     @Nullable
@@ -28,7 +28,7 @@ public class ProjectBean extends BaseBean<Long> {
 
     public ProjectBean(ProjectEntity entity) {
         super(entity);
-        this.startedDate = entity.getStartedDate();
+        this.startDate = entity.getStartedDate();
         this.endDate = entity.getEndDate();
         this.description = entity.getDescription();
         this.projectType = entity.getType();

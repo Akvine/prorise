@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class TaskBean extends BaseBean<Long> {
     private String title;
     private String description;
-    private LocalDate startedDate;
+    private LocalDate startDate;
     @Nullable
     private LocalDate endDate;
     private PriorityType priorityType;
@@ -30,7 +30,7 @@ public class TaskBean extends BaseBean<Long> {
         super(entity);
         this.title = entity.getTitle();
         this.description = entity.getDescription();
-        this.startedDate = entity.getStartedDate();
+        this.startDate = entity.getStartedDate();
         this.endDate = entity.getEndDate();
         this.priorityType = entity.getPriority();
         this.statusType = entity.getStatus();
