@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "TEAM")
 @Data
 @Accessors(chain = true)
-public class TeamEntity extends BaseEntity<Long> {
+public class TeamEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teamSeq")

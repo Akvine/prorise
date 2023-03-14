@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public class ProjectBean extends BaseBean<Long> {
+public class ProjectBean {
     private LocalDate startDate;
     @Nullable
     private LocalDate endDate;

@@ -3,7 +3,6 @@ package ru.akvine.prorise.entities.employer;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.entities.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "TRAINING")
 @Accessors(chain = true)
-public class TrainingEntity extends BaseEntity<Long> {
+public class TrainingEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trainingSeq")

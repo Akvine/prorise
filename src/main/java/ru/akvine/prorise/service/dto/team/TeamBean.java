@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public class TeamBean extends BaseBean<Long> {
+public class TeamBean {
     private String description;
     @Nullable
     private String departmentUuid;

@@ -3,7 +3,6 @@ package ru.akvine.prorise.entities.task;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.entities.BaseEntity;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 
 import javax.persistence.*;

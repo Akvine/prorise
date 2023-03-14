@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "GOAL")
 @Data
 @Accessors(chain = true)
-public class GoalEntity extends BaseEntity<Long> {
+public class GoalEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "goalSeq")

@@ -3,7 +3,6 @@ package ru.akvine.prorise.entities.department;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.entities.BaseEntity;
 import ru.akvine.prorise.entities.TeamEntity;
 
 import javax.persistence.*;
@@ -13,7 +12,7 @@ import java.util.List;
 @Table(name = "DEPARTMENT")
 @Data
 @Accessors(chain = true)
-public class DepartmentEntity extends BaseEntity<Long> {
+public class DepartmentEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentSeq")

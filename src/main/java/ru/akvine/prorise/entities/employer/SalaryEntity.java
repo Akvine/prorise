@@ -2,7 +2,6 @@ package ru.akvine.prorise.entities.employer;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import ru.akvine.prorise.entities.BaseEntity;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "SALARY")
 @Data
 @Accessors(chain = true)
-public class SalaryEntity extends BaseEntity<Long> {
+public class SalaryEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salarySeq")

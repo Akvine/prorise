@@ -2,7 +2,6 @@ package ru.akvine.prorise.service.dto.employer;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
@@ -12,9 +11,8 @@ import java.time.LocalDate;
 
 @Data
 @Accessors(chain = true)
-@ToString(callSuper = true)
 @NoArgsConstructor
-public class EmployerBean  extends BaseBean<Long> {
+public class EmployerBean {
     private String firstName;
     private String secondName;
     @Nullable

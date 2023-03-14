@@ -9,7 +9,7 @@ import ru.akvine.prorise.entities.department.DepartmentTypeEntity;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public class DepartmentTypeBean extends BaseBean<Long> {
+public class DepartmentTypeBean {
     private String description;
     private String code;
     private DepartmentType type;

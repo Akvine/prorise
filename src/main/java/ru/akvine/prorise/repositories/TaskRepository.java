@@ -8,7 +8,7 @@ import ru.akvine.prorise.entities.task.TaskEntity;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface TaskRepository extends BaseRepository<TaskEntity>, JpaRepository<TaskEntity, Long> {
+public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query("from TaskEntity te where te.done = true " +
             "and te.deleted = false " +
             "and te.startedDate = :startedDate " +

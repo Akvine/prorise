@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public class GoalBean extends BaseBean<Long> {
+public class GoalBean {
     private String description;
     private List<TaskBean> tasks;
     private boolean done;

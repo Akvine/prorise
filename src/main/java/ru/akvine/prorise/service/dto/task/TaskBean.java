@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public class TaskBean extends BaseBean<Long> {
+public class TaskBean {
     private String title;
     private String description;
     private LocalDate startDate;

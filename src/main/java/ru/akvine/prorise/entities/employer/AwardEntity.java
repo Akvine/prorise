@@ -2,7 +2,6 @@ package ru.akvine.prorise.entities.employer;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import ru.akvine.prorise.entities.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 @Table(name = "AWARD")
 @Data
 @Accessors(chain = true)
-public class AwardEntity extends BaseEntity<Long> {
+public class AwardEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "awardSeq")

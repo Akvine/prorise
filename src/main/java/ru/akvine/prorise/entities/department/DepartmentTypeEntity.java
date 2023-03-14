@@ -2,7 +2,6 @@ package ru.akvine.prorise.entities.department;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import ru.akvine.prorise.entities.BaseEntity;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "DEPARTMENT_TYPE")
 @Data
 @Accessors(chain = true)
-public class DepartmentTypeEntity extends BaseEntity<Long> {
+public class DepartmentTypeEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentTypeSeq")

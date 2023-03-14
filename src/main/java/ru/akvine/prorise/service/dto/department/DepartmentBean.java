@@ -12,7 +12,7 @@ import ru.akvine.prorise.entities.department.DepartmentType;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class DepartmentBean extends BaseBean<Long> {
+public class DepartmentBean {
     private String title;
     @Nullable
     private String description;
