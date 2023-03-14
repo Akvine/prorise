@@ -9,7 +9,6 @@ import ru.akvine.prorise.exceptions.BaseEntityAlreadyFoundException;
 import ru.akvine.prorise.exceptions.department.DepartmentAlreadyFoundException;
 import ru.akvine.prorise.exceptions.department.DepartmentNotFoundException;
 import ru.akvine.prorise.exceptions.department.DepartmentTypeNotFoundException;
-import ru.akvine.prorise.repositories.BaseRepository;
 import ru.akvine.prorise.repositories.DepartmentRepository;
 import ru.akvine.prorise.repositories.DepartmentTypeRepository;
 import ru.akvine.prorise.service.dto.department.DepartmentBean;

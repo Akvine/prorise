@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import ru.akvine.prorise.entities.GoalEntity;
-import ru.akvine.prorise.service.dto.BaseBean;
 import ru.akvine.prorise.service.dto.task.TaskBean;
 
 import java.util.List;

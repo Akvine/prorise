@@ -2,7 +2,6 @@ package ru.akvine.prorise.rest.dto.project;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import ru.akvine.prorise.rest.dto.BaseDto;
 import ru.akvine.prorise.rest.dto.goal.GoalDto;
 
 import java.time.LocalDate;

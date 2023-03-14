@@ -6,7 +6,6 @@ import ru.akvine.prorise.exceptions.BaseEntityAlreadyFoundException;
 import ru.akvine.prorise.exceptions.BaseEntityNotFoundException;
 import ru.akvine.prorise.exceptions.project.ProjectEntityAlreadyFoundException;
 import ru.akvine.prorise.exceptions.project.ProjectEntityNotFoundException;
-import ru.akvine.prorise.repositories.BaseRepository;
 import ru.akvine.prorise.repositories.ProjectRepository;
 import ru.akvine.prorise.service.dto.project.ProjectBean;
 import ru.akvine.prorise.tech.UuidGenerator;

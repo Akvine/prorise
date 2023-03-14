@@ -8,7 +8,6 @@ import ru.akvine.prorise.exceptions.BaseEntityAlreadyFoundException;
 import ru.akvine.prorise.exceptions.BaseEntityNotFoundException;
 import ru.akvine.prorise.exceptions.task.TaskEntityAlreadyFoundException;
 import ru.akvine.prorise.exceptions.task.TaskEntityNotFoundException;
-import ru.akvine.prorise.repositories.BaseRepository;
 import ru.akvine.prorise.repositories.TaskRepository;
 import ru.akvine.prorise.service.dto.task.TaskBean;
 import ru.akvine.prorise.service.dto.task.TaskFilterResult;

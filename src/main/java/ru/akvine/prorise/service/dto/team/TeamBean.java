@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.TeamEntity;
-import ru.akvine.prorise.service.dto.BaseBean;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
 import ru.akvine.prorise.service.dto.project.ProjectBean;
 

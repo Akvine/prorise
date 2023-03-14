@@ -7,7 +7,6 @@ import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.entities.employer.EmployerType;
-import ru.akvine.prorise.service.dto.BaseBean;
 
 import java.time.LocalDate;
 

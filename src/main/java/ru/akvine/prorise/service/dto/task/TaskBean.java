@@ -7,7 +7,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.task.PriorityType;
 import ru.akvine.prorise.entities.task.StatusType;
 import ru.akvine.prorise.entities.task.TaskEntity;
-import ru.akvine.prorise.service.dto.BaseBean;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
 
 import java.time.LocalDate;

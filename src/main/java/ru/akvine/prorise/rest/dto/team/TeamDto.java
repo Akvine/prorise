@@ -3,7 +3,6 @@ package ru.akvine.prorise.rest.dto.team;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.rest.dto.BaseDto;
 
 import javax.validation.constraints.NotBlank;
 

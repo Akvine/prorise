@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.entities.project.ProjectType;
-import ru.akvine.prorise.service.dto.BaseBean;
 import ru.akvine.prorise.service.dto.goal.GoalBean;
 
 import java.time.LocalDate;

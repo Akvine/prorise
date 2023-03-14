@@ -2,7 +2,6 @@ package ru.akvine.prorise.rest.dto.goal;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import ru.akvine.prorise.rest.dto.BaseDto;
 import ru.akvine.prorise.rest.dto.task.TaskDto;
 
 import java.util.List;

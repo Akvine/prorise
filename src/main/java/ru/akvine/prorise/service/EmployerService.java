@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.exceptions.employer.EmployerEntityAlreadyFoundException;
 import ru.akvine.prorise.exceptions.employer.EmployerEntityNotFoundException;
-import ru.akvine.prorise.repositories.BaseRepository;
 import ru.akvine.prorise.repositories.EmployerRepository;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
 import ru.akvine.prorise.tech.UuidGenerator;

@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import ru.akvine.prorise.entities.department.DepartmentType;
 import ru.akvine.prorise.entities.department.DepartmentTypeEntity;
-import ru.akvine.prorise.service.dto.BaseBean;
 
 @Data
 @Accessors(chain = true)

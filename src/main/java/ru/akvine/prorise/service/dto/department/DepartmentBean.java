@@ -7,7 +7,6 @@ import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.department.DepartmentEntity;
 import ru.akvine.prorise.entities.department.DepartmentType;
-import ru.akvine.prorise.service.dto.BaseBean;
 
 @Data
 @Accessors(chain = true)

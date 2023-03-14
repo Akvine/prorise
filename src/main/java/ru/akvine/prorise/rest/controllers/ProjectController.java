@@ -3,12 +3,9 @@ package ru.akvine.prorise.rest.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.akvine.prorise.rest.converter.BaseConverter;
 import ru.akvine.prorise.rest.converter.ProjectConverter;
 import ru.akvine.prorise.rest.dto.project.ProjectDto;
-import ru.akvine.prorise.rest.validator.BaseValidator;
 import ru.akvine.prorise.rest.validator.ProjectValidator;
-import ru.akvine.prorise.service.BaseService;
 import ru.akvine.prorise.service.ProjectService;
 import ru.akvine.prorise.service.dto.project.ProjectBean;
 

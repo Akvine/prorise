@@ -1,7 +1,6 @@
 package ru.akvine.prorise.exceptions;
 
 import lombok.Data;
-import ru.akvine.prorise.service.dto.BaseBean;
 
 @Data
 public class BaseEntityAlreadyFoundException extends RuntimeException {
