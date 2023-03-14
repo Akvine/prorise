@@ -35,5 +35,6 @@ public class TaskBean extends BaseBean<Long> {
         this.priorityType = entity.getPriority();
         this.statusType = entity.getStatus();
         this.done = entity.isDone();
+        this.employer = new EmployerBean(entity.getEmployer());
     }
 }
