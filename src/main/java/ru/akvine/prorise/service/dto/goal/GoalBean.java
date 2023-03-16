@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.GoalEntity;
+import ru.akvine.prorise.service.dto.project.ProjectBean;
 import ru.akvine.prorise.service.dto.task.TaskBean;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
@@ -25,7 +25,7 @@ public class GoalBean {
     private LocalDate deletedDate;
     private boolean deleted;
     private String description;
-    private List<TaskBean> tasks;
+    private ProjectBean projectBean;
     private boolean done;
 
     public GoalBean(GoalEntity entity) {
@@ -38,10 +38,6 @@ public class GoalBean {
         this.deleted = entity.isDeleted();
         this.done = entity.isDone();
         this.description = entity.getDescription();
-        this.tasks = entity
-                .getTasks()
-                .stream()
-                .map(TaskBean::new)
-                .collect(Collectors.toList());
+        this.projectBean = new ProjectBean(entity.getProject());
     }
 }

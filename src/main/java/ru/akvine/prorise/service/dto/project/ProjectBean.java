@@ -6,11 +6,9 @@ import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.entities.project.ProjectType;
-import ru.akvine.prorise.service.dto.goal.GoalBean;
+import ru.akvine.prorise.service.dto.team.TeamBean;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Accessors(chain = true)
@@ -30,7 +28,7 @@ public class ProjectBean {
     @Nullable
     private String description;
     private ProjectType projectType;
-    private List<GoalBean> goals;
+    private TeamBean teamBean;
     private boolean done;
     private boolean deleted;
 
@@ -47,10 +45,6 @@ public class ProjectBean {
         this.projectType = entity.getType();
         this.done = entity.isDone();
         this.deleted = entity.isDeleted();
-        this.goals = entity
-                .getGoals()
-                .stream()
-                .map(GoalBean::new)
-                .collect(Collectors.toList());
+        this.teamBean = new TeamBean(entity.getTeam());
     }
 }

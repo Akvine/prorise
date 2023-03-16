@@ -3,6 +3,8 @@ package ru.akvine.prorise.entities.task;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
+import ru.akvine.prorise.entities.GoalEntity;
+import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 
 import javax.persistence.*;
@@ -42,6 +44,10 @@ public class TaskEntity {
     @OneToOne
     @JoinColumn(name = "EMPLOYER_ID", nullable = false)
     private EmployerEntity employer;
+
+    @ManyToOne
+    @JoinColumn(name = "GOAL_ID", nullable = false)
+    private GoalEntity goal;
 
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)

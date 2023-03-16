@@ -44,7 +44,7 @@ public class TaskConverter {
         return new TaskResponse()
                 .setTitle(taskBean.getTitle())
                 .setDescription(taskBean.getDescription())
-                .setEmployerUuid(taskBean.getEmployer().getUuid())
+                .setEmployerUuid(taskBean.getEmployerBean().getUuid())
                 .setStartDate(taskBean.getStartDate())
                 .setEndDate(taskBean.getEndDate())
                 .setDone(taskBean.isDone())

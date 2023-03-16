@@ -3,11 +3,10 @@ package ru.akvine.prorise.entities.project;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.entities.GoalEntity;
+import ru.akvine.prorise.entities.TeamEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "PROJECT")
@@ -41,9 +40,9 @@ public class ProjectEntity {
     @Enumerated(EnumType.STRING)
     private ProjectType type;
 
-    @OneToMany
-    @JoinColumn(name = "PROJECT_ID", nullable = false)
-    private List<GoalEntity> goals;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", nullable = false)
+    private TeamEntity team;
 
     @Column(name = "IS_DONE", nullable = false)
     private boolean done;

@@ -3,11 +3,9 @@ package ru.akvine.prorise.entities.department;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.entities.TeamEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "DEPARTMENT")
@@ -33,10 +31,6 @@ public class DepartmentEntity {
     @Nullable
     @Column(name = "DESCRIPTION")
     private String description;
-
-    @OneToMany
-    @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
-    private List<TeamEntity> teams;
 
     @Column(name = "CREATED_DATE", nullable = false)
     private LocalDate createdDate = LocalDate.now();

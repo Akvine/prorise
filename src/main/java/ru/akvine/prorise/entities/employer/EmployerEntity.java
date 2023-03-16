@@ -3,6 +3,7 @@ package ru.akvine.prorise.entities.employer;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
+import ru.akvine.prorise.entities.TeamEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -41,6 +42,10 @@ public class EmployerEntity {
     @Column(name = "EMPLOYER_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
     private EmployerType type;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", nullable = false)
+    private TeamEntity team;
 
     @Column(name = "CREATED_DATE", nullable = false)
     private LocalDate createdDate = LocalDate.now();

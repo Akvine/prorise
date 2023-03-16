@@ -9,7 +9,7 @@ import java.util.Date;
 public class SuccessfulResponse implements Response {
     private final LocalDate time = LocalDate.now();
     @Override
-    public ResponseStatus getStatus() {
+    public ResponseStatus getResponseStatus() {
         return ResponseStatus.SUCCESS;
     }
 }

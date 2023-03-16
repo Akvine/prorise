@@ -3,12 +3,10 @@ package ru.akvine.prorise.entities;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
-import ru.akvine.prorise.entities.employer.EmployerEntity;
-import ru.akvine.prorise.entities.project.ProjectEntity;
+import ru.akvine.prorise.entities.department.DepartmentEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "TEAM")
@@ -27,13 +25,9 @@ public class TeamEntity {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @OneToMany
-    @JoinColumn(name = "TEAM_ID", nullable = false)
-    private List<EmployerEntity> employers;
-
-    @OneToMany
-    @JoinColumn(name = "TEAM_ID", nullable = false)
-    private List<ProjectEntity> projects;
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
+    private DepartmentEntity departmentEntity;
 
     @Nullable
     @Column(name = "DESCRIPTION")

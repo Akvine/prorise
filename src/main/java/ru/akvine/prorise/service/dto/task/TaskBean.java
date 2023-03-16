@@ -8,6 +8,7 @@ import ru.akvine.prorise.entities.task.PriorityType;
 import ru.akvine.prorise.entities.task.StatusType;
 import ru.akvine.prorise.entities.task.TaskEntity;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
+import ru.akvine.prorise.service.dto.goal.GoalBean;
 
 import java.time.LocalDate;
 
@@ -29,7 +30,8 @@ public class TaskBean {
     @Nullable
     private LocalDate endDate;
     private PriorityType priorityType;
-    private EmployerBean employer;
+    private EmployerBean employerBean;
+    private GoalBean goalBean;
     private StatusType statusType;
     private boolean done;
     private boolean deleted;
@@ -48,6 +50,7 @@ public class TaskBean {
         this.statusType = entity.getStatus();
         this.done = entity.isDone();
         this.deleted = entity.isDeleted();
-        this.employer = new EmployerBean(entity.getEmployer());
+        this.employerBean = new EmployerBean(entity.getEmployer());
+        this.goalBean = new GoalBean(entity.getGoal());
     }
 }
