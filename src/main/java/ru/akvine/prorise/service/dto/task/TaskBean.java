@@ -15,8 +15,15 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class TaskBean {
+    private Long id;
+    private String uuid;
     private String title;
     private String description;
+    private LocalDate createdDate;
+    @Nullable
+    private LocalDate updatedDate;
+    @Nullable
+    private LocalDate deletedDate;
     private LocalDate startDate;
     @Nullable
     private LocalDate endDate;
@@ -24,16 +31,22 @@ public class TaskBean {
     private EmployerBean employer;
     private StatusType statusType;
     private boolean done;
+    private boolean deleted;
 
     public TaskBean(TaskEntity entity) {
-        super(entity);
+        this.id = entity.getId();
+        this.uuid = entity.getUuid();
         this.title = entity.getTitle();
         this.description = entity.getDescription();
+        this.createdDate = entity.getCreatedDate();
+        this.updatedDate = entity.getUpdatedDate();
+        this.deletedDate = entity.getDeletedDate();
         this.startDate = entity.getStartedDate();
         this.endDate = entity.getEndDate();
         this.priorityType = entity.getPriority();
         this.statusType = entity.getStatus();
         this.done = entity.isDone();
+        this.deleted = entity.isDeleted();
         this.employer = new EmployerBean(entity.getEmployer());
     }
 }

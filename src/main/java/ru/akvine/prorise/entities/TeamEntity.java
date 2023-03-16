@@ -7,6 +7,7 @@ import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.entities.project.ProjectEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,6 +21,9 @@ public class TeamEntity {
     @SequenceGenerator(name = "teamSeq", sequenceName = "TEAM_SEQUENCE", allocationSize = 1000)
     private Long id;
 
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
+
     @OneToMany
     @JoinColumn(name = "TEAM_ID", nullable = false)
     private List<EmployerEntity> employers;
@@ -31,4 +35,18 @@ public class TeamEntity {
     @Nullable
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }

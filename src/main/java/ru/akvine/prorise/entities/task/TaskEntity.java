@@ -12,12 +12,15 @@ import java.time.LocalDate;
 @Table(name = "TASK")
 @Data
 @Accessors(chain = true)
-public class TaskEntity extends BaseEntity<Long> {
+public class TaskEntity {
     @Id
     @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taskSeq")
     @SequenceGenerator(name = "taskSeq", sequenceName = "TASK_SEQUENCE", allocationSize = 1000)
     private Long id;
+
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
@@ -46,4 +49,18 @@ public class TaskEntity extends BaseEntity<Long> {
 
     @Column(name = "IS_DONE", nullable = false)
     private boolean done;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }

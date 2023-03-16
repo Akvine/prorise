@@ -20,6 +20,9 @@ public class ProjectEntity {
     @SequenceGenerator(name = "projectSeq", sequenceName = "PROJECT_SEQUENCE", allocationSize = 1000)
     private Long id;
 
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
+
     @Column(name = "STARTED_DATE", nullable = false)
     private LocalDate startedDate;
 
@@ -41,4 +44,18 @@ public class ProjectEntity {
 
     @Column(name = "IS_DONE", nullable = false)
     private boolean done;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }

@@ -8,6 +8,7 @@ import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
 import ru.akvine.prorise.service.dto.project.ProjectBean;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,16 +16,26 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class TeamBean {
-    private String description;
+    private Long id;
+    private String uuid;
+    private LocalDate createdDate;
     @Nullable
-    private String departmentUuid;
+    private LocalDate updatedDate;
+    @Nullable
+    private LocalDate deletedDate;
+    private boolean deleted;
+    private String description;
     private List<EmployerBean> employers;
     private List<ProjectBean> projects;
 
     public TeamBean(TeamEntity entity) {
-        super(entity);
+        this.id = entity.getId();
+        this.uuid = entity.getUuid();
+        this.createdDate = entity.getCreatedDate();
+        this.updatedDate = entity.getUpdatedDate();
+        this.deletedDate = entity.getDeletedDate();
         this.description = entity.getDescription();
-        this.departmentUuid = entity.getUuid();
+        this.deleted = entity.isDeleted();
         this.employers = entity
                 .getEmployers()
                 .stream()

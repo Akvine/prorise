@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.TeamEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,9 @@ public class DepartmentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentSeq")
     @SequenceGenerator(name = "departmentSeq", sequenceName = "DEPARTMENT_SEQUENCE", allocationSize = 1000)
     private Long id;
+
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
@@ -33,4 +37,18 @@ public class DepartmentEntity {
     @OneToMany
     @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
     private List<TeamEntity> teams;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }

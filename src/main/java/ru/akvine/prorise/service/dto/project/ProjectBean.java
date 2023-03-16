@@ -16,6 +16,13 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class ProjectBean {
+    private Long id;
+    private String uuid;
+    private LocalDate createdDate;
+    @Nullable
+    private LocalDate updatedDate;
+    @Nullable
+    private LocalDate deletedDate;
     private LocalDate startDate;
     @Nullable
     private LocalDate endDate;
@@ -24,14 +31,20 @@ public class ProjectBean {
     private ProjectType projectType;
     private List<GoalBean> goals;
     private boolean done;
+    private boolean deleted;
 
     public ProjectBean(ProjectEntity entity) {
-        super(entity);
+        this.id = entity.getId();
+        this.uuid = entity.getUuid();
+        this.createdDate = entity.getCreatedDate();
+        this.updatedDate = entity.getUpdatedDate();
+        this.deletedDate = entity.getDeletedDate();
         this.startDate = entity.getStartedDate();
         this.endDate = entity.getEndDate();
         this.description = entity.getDescription();
         this.projectType = entity.getType();
         this.done = entity.isDone();
+        this.deleted = entity.isDeleted();
         this.goals = entity
                 .getGoals()
                 .stream()
