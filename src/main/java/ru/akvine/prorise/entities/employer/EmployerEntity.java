@@ -18,6 +18,9 @@ public class EmployerEntity {
     @SequenceGenerator(name = "employerSeq", sequenceName = "EMPLOYER_SEQUENCE", allocationSize = 1000)
     private Long id;
 
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
+
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
@@ -38,4 +41,18 @@ public class EmployerEntity {
     @Column(name = "EMPLOYER_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
     private EmployerType type;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }

@@ -13,10 +13,18 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class EmployerBean {
+    private Long id;
+    private String uuid;
     private String firstName;
     private String secondName;
     @Nullable
     private String thirdName;
+    private LocalDate createdDate;
+    @Nullable
+    private LocalDate updatedDate;
+    @Nullable
+    private LocalDate deletedDate;
+    private boolean deleted;
     @Nullable
     private String teamUuid;
     private LocalDate employmentDate;
@@ -25,10 +33,15 @@ public class EmployerBean {
     private EmployerType employerType;
 
     public EmployerBean(EmployerEntity employerEntity) {
-        super(employerEntity);
+        this.id = employerEntity.getId();
+        this.uuid = employerEntity.getUuid();
         this.firstName = employerEntity.getFirstName();
         this.secondName = employerEntity.getSecondName();
         this.thirdName = employerEntity.getThirdName();
+        this.createdDate = employerEntity.getCreatedDate();
+        this.updatedDate = employerEntity.getUpdatedDate();
+        this.deletedDate = employerEntity.getDeletedDate();
+        this.deleted = employerEntity.isDeleted();
         this.employmentDate = employerEntity.getEmploymentDate();
         this.dismissalDate = employerEntity.getDismissalDate();
         this.employerType = employerEntity.getType();
