@@ -1,8 +1,6 @@
 package ru.akvine.prorise.rest.dto.employer;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,9 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @Accessors(chain = true)
-@ToString(callSuper = true)
-public class EmployerDto extends BaseDto {
-
+public class EmployerCreateRequest {
     @NotBlank
     private String firstName;
 
@@ -24,16 +20,11 @@ public class EmployerDto extends BaseDto {
     private String thirdName;
 
     @NotBlank
-    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate employmentDate;
 
-    @Nullable
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @NotBlank
     private LocalDate dismissalDate;
 
     @NotBlank
-    private String employmentType;
-
-    @NotBlank
-    private String teamUuid;
+    private String employerType;
 }
