@@ -2,6 +2,7 @@ package ru.akvine.prorise.entities.employer;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +17,9 @@ public class AwardEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "awardSeq")
     @SequenceGenerator(name = "awardSeq", sequenceName = "AWARD_SEQUENCE", allocationSize = 1000)
     private Long id;
+
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
@@ -32,4 +36,18 @@ public class AwardEntity {
 
     @Column(name = "RECEIPT_DATE")
     private LocalDate receiptDate;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }

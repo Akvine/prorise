@@ -18,6 +18,9 @@ public class TrainingEntity {
     @SequenceGenerator(name = "trainingSeq", sequenceName = "TRAINING_SEQUENCE", allocationSize = 1000)
     private Long id;
 
+    @Column(name = "UUID", updatable = false, nullable = false)
+    private String uuid;
+
     @Column(name = "TITLE", nullable = false)
     private String title;
 
@@ -40,4 +43,18 @@ public class TrainingEntity {
     @ManyToOne
     @JoinColumn(name = "EMPLOYER_ID", nullable = false)
     private EmployerEntity employerEntity;
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
+
+    @Nullable
+    @Column(name = "UPDATED_DATE")
+    private LocalDate updatedDate;
+
+    @Nullable
+    @Column(name = "DELETED_DATE")
+    private LocalDate deletedDate;
+
+    @Column(name = "IS_DELETED", nullable = false)
+    private boolean deleted;
 }
