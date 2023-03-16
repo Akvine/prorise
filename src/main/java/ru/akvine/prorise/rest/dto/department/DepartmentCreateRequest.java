@@ -1,4 +1,4 @@
-package ru.akvine.prorise.rest.dto.team;
+package ru.akvine.prorise.rest.dto.department;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -8,10 +8,13 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Accessors(chain = true)
-public class TeamDto extends BaseDto {
+public class DepartmentCreateRequest {
+    @NotBlank
+    private String title;
+
     @Nullable
     private String description;
 
     @NotBlank
-    private String departmentUuid;
+    private String type;
 }

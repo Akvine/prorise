@@ -3,24 +3,25 @@ package ru.akvine.prorise.rest.dto.task;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Accessors(chain = true)
-public class TaskDto extends BaseDto {
+public class TaskCreateRequest {
+    @NotBlank
     private String title;
 
+    @NotBlank
     private String description;
 
-    private LocalDate startDate;
-
-    private LocalDate endDate;
-
+    @NotBlank
     private String priority;
 
-    private String employerUuid;
-
+    @NotBlank
     private String status;
+
+    @NotBlank
+    private String employerUuid;
 
     private boolean done;
 }

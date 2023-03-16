@@ -19,6 +19,7 @@ public class TaskBean {
     private String uuid;
     private String title;
     private String description;
+    private String employerUuid;
     private LocalDate createdDate;
     @Nullable
     private LocalDate updatedDate;
@@ -41,7 +42,7 @@ public class TaskBean {
         this.createdDate = entity.getCreatedDate();
         this.updatedDate = entity.getUpdatedDate();
         this.deletedDate = entity.getDeletedDate();
-        this.startDate = entity.getStartedDate();
+        this.startDate = entity.getStartDate();
         this.endDate = entity.getEndDate();
         this.priorityType = entity.getPriority();
         this.statusType = entity.getStatus();

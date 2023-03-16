@@ -23,6 +23,9 @@ public class ProjectEntity {
     @Column(name = "UUID", updatable = false, nullable = false)
     private String uuid;
 
+    @Column(name = "TITLE", nullable = false)
+    private String title;
+
     @Column(name = "STARTED_DATE", nullable = false)
     private LocalDate startedDate;
 

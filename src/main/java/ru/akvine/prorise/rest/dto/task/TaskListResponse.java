@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import ru.akvine.prorise.rest.dto.common.SuccessfulResponse;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class TaskFilterResponse extends SuccessfulResponse {
-    private int count;
-    private List<TaskDto> tasks;
+public class TaskListResponse extends SuccessfulResponse {
+    @Valid
+    private List<TaskResponse> tasks;
 }

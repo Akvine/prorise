@@ -24,6 +24,9 @@ public class TeamEntity {
     @Column(name = "UUID", updatable = false, nullable = false)
     private String uuid;
 
+    @Column(name = "TITLE", nullable = false)
+    private String title;
+
     @OneToMany
     @JoinColumn(name = "TEAM_ID", nullable = false)
     private List<EmployerEntity> employers;

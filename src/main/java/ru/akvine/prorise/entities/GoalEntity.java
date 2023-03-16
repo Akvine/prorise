@@ -23,6 +23,9 @@ public class GoalEntity {
     @Column(name = "UUID", updatable = false, nullable = false)
     private String uuid;
 
+    @Column(name = "TITLE", nullable = false)
+    private String title;
+
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 

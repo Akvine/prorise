@@ -2,12 +2,13 @@ package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.akvine.prorise.entities.task.TaskEntity;
+import ru.akvine.prorise.exceptions.TaskEntityNotFoundException;
 import ru.akvine.prorise.repositories.TaskRepository;
 import ru.akvine.prorise.service.dto.task.TaskBean;
-import ru.akvine.prorise.service.dto.task.TaskFilterResult;
-import ru.akvine.prorise.service.dto.task.TaskFilterStart;
+import ru.akvine.prorise.tech.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,37 +18,63 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final UuidGenerator uuidGenerator;
 
-    public TaskFilterResult getCompletedTasksByFilter(TaskFilterStart taskFilterStart) {
-        Preconditions.checkNotNull(taskFilterStart, "taskFilterStart is null");
+    @Value("${uuid.generator.length}")
+    private int uuidGeneratorLength;
+    @Value("{uuid.generator.target}")
+    private String uuidGeneratorTarget;
 
-        LocalDate startDate = taskFilterStart.getStartDate();
-        LocalDate endDate = taskFilterStart.getEndDate();
-        String employerUuid = taskFilterStart.getEmployerUuid();
 
-        List<TaskBean> tasks;
-        if (startDate != null && endDate != null && StringUtils.isNotBlank(employerUuid)) {
-            tasks = taskRepository
-                    .getCompletedByPeriodDateAndEmployerUuid(startDate, endDate, employerUuid)
-                    .stream()
-                    .map(TaskBean::new)
-                    .collect(Collectors.toList());
-        } else if (startDate != null && endDate != null) {
-            tasks = taskRepository
-                    .getCompletedByPeriodDate(startDate, endDate)
-                    .stream()
-                    .map(TaskBean::new)
-                    .collect(Collectors.toList());
-        } else {
-            tasks = taskRepository
-                    .getCompleted()
-                    .stream()
-                    .map(TaskBean::new)
-                    .collect(Collectors.toList());
-        }
+    public TaskBean getByUuid(String uuid) {
+        Preconditions.checkNotNull(uuid, "Uuid is null");
+        return new TaskBean(getEntityByUuid(uuid));
+    }
 
-        return new TaskFilterResult()
-                .setTasks(tasks)
-                .setCount(tasks.size());
+    public TaskEntity getEntityByUuid(String uuid) {
+        Preconditions.checkNotNull(uuid, "uuid is null");
+        return taskRepository.findByUuidAndNotDeleted(uuid)
+                .orElseThrow(() -> new TaskEntityNotFoundException("TaskEntity not found by uuid = " + uuid));
+    }
+
+    public List<TaskBean> get() {
+        return taskRepository
+                .findAll()
+                .stream()
+                .map(TaskBean::new)
+                .collect(Collectors.toList());
+    }
+
+    public TaskBean create(TaskBean taskBean) {
+        Preconditions.checkNotNull(taskBean, "taskBean is null");
+
+        TaskEntity taskEntity = new TaskEntity()
+                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setTitle(taskBean.getTitle())
+                .setDescription(taskBean.getDescription());
+
+        return new TaskBean(taskRepository.save(taskEntity));
+    }
+
+    public TaskBean update(TaskBean taskBean) {
+        Preconditions.checkNotNull(taskBean, "taskBean is null");
+        TaskEntity taskEntity = getEntityByUuid(taskBean.getUuid());
+        taskEntity
+                .setTitle(taskBean.getTitle())
+                .setDescription(taskBean.getDescription())
+                .setDone(taskBean.isDone())
+                .setStartDate(taskBean.getStartDate())
+                .setEndDate(taskBean.getEndDate())
+                .setUpdatedDate(LocalDate.now());
+
+        return new TaskBean(taskRepository.save(taskEntity));
+    }
+
+    public void deleteByUuid(String uuid) {
+        Preconditions.checkNotNull(uuid, "uuid is null");
+        TaskEntity taskEntity = getEntityByUuid(uuid);
+        taskEntity.setDeleted(true);
+        taskEntity.setDeletedDate(LocalDate.now());
+        taskRepository.save(taskEntity);
     }
 }

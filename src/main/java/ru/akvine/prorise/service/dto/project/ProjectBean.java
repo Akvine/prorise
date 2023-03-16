@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class ProjectBean {
     private Long id;
     private String uuid;
+    private String title;
     private LocalDate createdDate;
     @Nullable
     private LocalDate updatedDate;
@@ -36,6 +37,7 @@ public class ProjectBean {
     public ProjectBean(ProjectEntity entity) {
         this.id = entity.getId();
         this.uuid = entity.getUuid();
+        this.title = entity.getTitle();
         this.createdDate = entity.getCreatedDate();
         this.updatedDate = entity.getUpdatedDate();
         this.deletedDate = entity.getDeletedDate();

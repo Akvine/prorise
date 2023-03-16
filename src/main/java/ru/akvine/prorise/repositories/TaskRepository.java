@@ -3,28 +3,12 @@ package ru.akvine.prorise.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.entities.task.TaskEntity;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
-    @Query("from TaskEntity te where te.done = true " +
-            "and te.deleted = false " +
-            "and te.startedDate = :startedDate " +
-            "and te.endDate = :endDate " +
-            "and te.employer.uuid = :uuid")
-    List<TaskEntity> getCompletedByPeriodDateAndEmployerUuid(@Param("startedDate") LocalDate startedDate,
-                                                             @Param("endDate") LocalDate endDate,
-                                                             @Param("uuid") String employerUuid);
-
-    @Query("from TaskEntity te where te.done = true " +
-            "and te.deleted = false " +
-            "and te.startedDate >= :startedDate " +
-            "and te.endDate <= :endDate")
-    List<TaskEntity> getCompletedByPeriodDate(@Param("startedDate") LocalDate startedDate,
-                                              @Param("endDate") LocalDate endDate);
-
-    @Query("from TaskEntity te where te.done = true and te.deleted = false")
-    List<TaskEntity> getCompleted();
+    @Query("FROM TaskEntity te WHERE te.uuid = :uuid and te.deleted = false")
+    Optional<TaskEntity> findByUuidAndNotDeleted(@Param("uuid") String uuid);
 }

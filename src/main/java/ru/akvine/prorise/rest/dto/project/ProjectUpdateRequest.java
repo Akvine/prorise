@@ -2,23 +2,27 @@ package ru.akvine.prorise.rest.dto.project;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import ru.akvine.prorise.rest.dto.goal.GoalDto;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class ProjectDto extends BaseDto {
+public class ProjectUpdateRequest {
+    @NotBlank
+    private String uuid;
+
+    @NotBlank
+    private String title;
+
+    @NotBlank
     private LocalDate startDate;
 
+    @NotBlank
     private LocalDate endDate;
 
+    @NotBlank
     private String description;
-
-    private String projectType;
-
-    private List<GoalDto> goals;
 
     private boolean done;
 }
