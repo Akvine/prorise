@@ -6,6 +6,7 @@ public class TestConstants {
     public interface Entities {
         String ENTITY_NOT_FOUND = "entity not found";
         String DEPARTMENT_UUID_1 = "department_uuid_1";
+        String TEAM_UUID_1 = "team_uuid_1";
     }
 
     // Endpoints

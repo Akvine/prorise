@@ -34,7 +34,8 @@ public class TeamConverter {
         Preconditions.checkNotNull(team, "team is null");
         return new TeamResponse()
                 .setDescription(team.getDescription())
-                .setTitle(team.getTitle());
+                .setTitle(team.getTitle())
+                .setDepartmentUuid(team.getDepartmentBean().getUuid());
     }
 
     public TeamListResponse convertToTeamListResponse(List<TeamBean> teams) {

@@ -71,10 +71,16 @@ public class TeamService {
         Preconditions.checkNotNull(teamBean, "teamBean is null");
 
         TeamEntity teamEntity = getEntityByUuid(teamBean.getUuid());
-        teamEntity
-                .setTitle(teamBean.getTitle())
-                .setDescription(teamBean.getDescription())
-                .setUpdatedDate(LocalDate.now());
+
+        String title = teamBean.getTitle();
+        String description = teamBean.getDescription();
+
+        if (StringUtils.isNotBlank(title)) {
+            teamEntity.setTitle(title);
+        }
+        if (StringUtils.isNotBlank(description)) {
+            teamEntity.setDescription(description);
+        }
 
         String departmentUuid = teamBean.getDepartmentUuid();
 
@@ -83,6 +89,8 @@ public class TeamService {
             teamEntity.setDepartmentEntity(departmentEntity);
         }
 
+        teamEntity
+                .setUpdatedDate(LocalDate.now());
         return new TeamBean(teamRepository.save(teamEntity));
     }
 

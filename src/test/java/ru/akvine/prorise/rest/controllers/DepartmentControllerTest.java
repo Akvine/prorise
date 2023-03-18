@@ -85,7 +85,7 @@ class DepartmentControllerTest extends ApiBaseTest {
     }
 
     @Test
-    @DisplayName("Get department by uuid - FAIL - not found")
+    @DisplayName("Delete department by uuid - FAIL - not found")
     void deleteDepartmentByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
         doDelete(DEPARTMENT_ENDPOINT + "/" + notExistsUuid, null)
