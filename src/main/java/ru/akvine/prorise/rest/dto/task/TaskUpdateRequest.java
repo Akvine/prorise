@@ -12,17 +12,23 @@ public class TaskUpdateRequest {
     @NotBlank
     private String uuid;
 
-    @NotBlank
+    @Nullable
     private String title;
 
-    @NotBlank
+    @Nullable
     private String description;
 
-    @NotBlank
+    @Nullable
     private String priority;
 
-    @NotBlank
+    @Nullable
     private String status;
+
+    @Nullable
+    private String startDate;
+
+    @Nullable
+    private String endDate;
 
     @Nullable
     private String employerUuid;

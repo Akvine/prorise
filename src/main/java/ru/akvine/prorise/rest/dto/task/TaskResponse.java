@@ -21,6 +21,8 @@ public class TaskResponse extends SuccessfulResponse {
 
     private String employerUuid;
 
+    private String goalUuid;
+
     private String status;
 
     private boolean done;

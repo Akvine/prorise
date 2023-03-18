@@ -2,6 +2,7 @@ package ru.akvine.prorise.rest.dto.task;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotBlank;
 
@@ -16,6 +17,12 @@ public class TaskCreateRequest {
 
     @NotBlank
     private String priority;
+
+    @NotBlank
+    private String startDate;
+
+    @Nullable
+    private String endDate;
 
     @NotBlank
     private String status;

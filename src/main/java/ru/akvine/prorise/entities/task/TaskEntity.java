@@ -30,7 +30,7 @@ public class TaskEntity {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    @Column(name = "STARTED_DATE", nullable = false)
+    @Column(name = "START_DATE", nullable = false)
     private LocalDate startDate;
 
     @Nullable

@@ -1,6 +1,7 @@
 package ru.akvine.prorise.rest.converter;
 
 import com.google.common.base.Preconditions;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.akvine.prorise.entities.task.PriorityType;
 import ru.akvine.prorise.entities.task.StatusType;
@@ -9,36 +10,54 @@ import ru.akvine.prorise.rest.dto.task.TaskListResponse;
 import ru.akvine.prorise.rest.dto.task.TaskResponse;
 import ru.akvine.prorise.rest.dto.task.TaskUpdateRequest;
 import ru.akvine.prorise.service.dto.task.TaskBean;
+import ru.akvine.prorise.tech.DateConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class TaskConverter {
+    private final DateConverter dateConverter;
+
     public TaskBean convertToTaskBean(TaskCreateRequest request) {
         Preconditions.checkNotNull(request, "taskCreateRequest is null");
         Preconditions.checkNotNull(request, "taskUpdateRequest is null");
         return new TaskBean()
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
+                .setStartDate(dateConverter.toLocalDate(request.getStartDate()))
+                .setEndDate(dateConverter.toLocalDate(request.getEndDate()))
                 .setPriorityType(PriorityType.safeValueOf(request.getPriority()))
                 .setStatusType(StatusType.safeValueOf(request.getStatus()))
                 .setEmployerUuid(request.getEmployerUuid())
                 .setDone(request.isDone())
-                .setEmployerUuid(request.getGoalUuid());
+                .setEmployerUuid(request.getEmployerUuid())
+                .setGoalUuid(request.getGoalUuid());
     }
 
     public TaskBean convertToTaskBean(TaskUpdateRequest request) {
         Preconditions.checkNotNull(request, "taskUpdateRequest is null");
-        return new TaskBean()
+
+        TaskBean taskBean = new TaskBean()
                 .setUuid(request.getUuid())
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setPriorityType(PriorityType.safeValueOf(request.getPriority()))
-                .setStatusType(StatusType.safeValueOf(request.getStatus()))
+                .setStartDate(dateConverter.toLocalDate(request.getStartDate()))
+                .setEndDate(dateConverter.toLocalDate(request.getEndDate()))
                 .setEmployerUuid(request.getEmployerUuid())
                 .setDone(request.isDone())
                 .setGoalUuid(request.getGoalUuid());
+
+        if (request.getStatus() != null) {
+            taskBean.setStatusType(StatusType.safeValueOf(request.getStatus()));
+        }
+        if (request.getPriority() != null) {
+            taskBean.setPriorityType(PriorityType.safeValueOf(request.getStatus()));
+        }
+
+        return taskBean;
+
     }
 
     public TaskResponse convertToTaskResponse(TaskBean taskBean) {
@@ -50,6 +69,7 @@ public class TaskConverter {
                 .setStartDate(taskBean.getStartDate())
                 .setEndDate(taskBean.getEndDate())
                 .setDone(taskBean.isDone())
+                .setGoalUuid(taskBean.getGoalBean().getUuid())
                 .setPriority(taskBean.getPriorityType().name())
                 .setStatus(taskBean.getStatusType().name());
     }

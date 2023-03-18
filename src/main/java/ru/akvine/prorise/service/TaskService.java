@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.GoalEntity;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
+import ru.akvine.prorise.entities.task.PriorityType;
+import ru.akvine.prorise.entities.task.StatusType;
 import ru.akvine.prorise.entities.task.TaskEntity;
 import ru.akvine.prorise.exceptions.TaskEntityNotFoundException;
 import ru.akvine.prorise.repositories.TaskRepository;
@@ -53,7 +55,7 @@ public class TaskService {
     public TaskBean create(TaskBean taskBean) {
         Preconditions.checkNotNull(taskBean, "taskBean is null");
         Preconditions.checkNotNull(taskBean.getEmployerUuid(), "taskBean.goalUuid is null");
-        Preconditions.checkNotNull(taskBean.getGoalUuid(), "taskBean.employerUuid is null");
+        Preconditions.checkNotNull(taskBean.getGoalUuid(), "taskBean.goalUuid is null");
 
         EmployerEntity employerEntity = employerService.getEntityByUuid(taskBean.getEmployerUuid());
         GoalEntity goalEntity = goalService.getEntityByUuid(taskBean.getGoalUuid());
@@ -62,6 +64,11 @@ public class TaskService {
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(taskBean.getTitle())
                 .setDescription(taskBean.getDescription())
+                .setDone(taskBean.isDone())
+                .setPriority(taskBean.getPriorityType())
+                .setStatus(taskBean.getStatusType())
+                .setStartDate(taskBean.getStartDate())
+                .setEndDate(taskBean.getEndDate())
                 .setEmployer(employerEntity)
                 .setGoal(goalEntity);
 
@@ -71,13 +78,32 @@ public class TaskService {
     public TaskBean update(TaskBean taskBean) {
         Preconditions.checkNotNull(taskBean, "taskBean is null");
         TaskEntity taskEntity = getEntityByUuid(taskBean.getUuid());
-        taskEntity
-                .setTitle(taskBean.getTitle())
-                .setDescription(taskBean.getDescription())
-                .setDone(taskBean.isDone())
-                .setStartDate(taskBean.getStartDate())
-                .setEndDate(taskBean.getEndDate())
-                .setUpdatedDate(LocalDate.now());
+
+        String title = taskBean.getTitle();
+        String description = taskBean.getDescription();
+        PriorityType priority = taskBean.getPriorityType();
+        StatusType status = taskBean.getStatusType();
+        LocalDate startDate = taskBean.getStartDate();
+        LocalDate endDate = taskBean.getEndDate();
+
+        if (StringUtils.isNotBlank(title)) {
+            taskEntity.setTitle(title);
+        }
+        if (StringUtils.isNotBlank(description)) {
+            taskEntity.setDescription(description);
+        }
+        if (priority != null) {
+            taskEntity.setPriority(priority);
+        }
+        if (status != null) {
+            taskEntity.setStatus(status);
+        }
+        if (startDate != null) {
+            taskEntity.setStartDate(startDate);
+        }
+        if (endDate != null) {
+            taskEntity.setEndDate(endDate);
+        }
 
         String employerUuid = taskBean.getEmployerUuid();
         String goalUuid = taskBean.getGoalUuid();
@@ -90,6 +116,9 @@ public class TaskService {
             taskEntity.setGoal(goalEntity);
         }
 
+        taskEntity
+                .setDone(taskBean.isDone())
+                .setUpdatedDate(LocalDate.now());
         return new TaskBean(taskRepository.save(taskEntity));
     }
 

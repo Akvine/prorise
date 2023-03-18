@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ru.akvine.prorise.exceptions.DepartmentNotFoundException;
-import ru.akvine.prorise.exceptions.GoalEntityNotFoundException;
-import ru.akvine.prorise.exceptions.ProjectEntityNotFoundException;
-import ru.akvine.prorise.exceptions.TeamEntityNotFoundException;
+import ru.akvine.prorise.exceptions.*;
 import ru.akvine.prorise.rest.dto.common.CommonErrorCodes;
 import ru.akvine.prorise.rest.dto.common.ErrorResponse;
 
@@ -51,6 +48,26 @@ public class CrudExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGoalEntityNotFoundException(GoalEntityNotFoundException exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 CommonErrorCodes.GOAL_NOT_FOUND,
+                exception.getMessage(),
+                LocalDate.now()
+        );
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({TaskEntityNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleTaskEntityNotFoundException(TaskEntityNotFoundException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                CommonErrorCodes.TASK_NOT_FOUND,
+                exception.getMessage(),
+                LocalDate.now()
+        );
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({EmployerEntityNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleEmployerEntityNotFoundException(EmployerEntityNotFoundException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                CommonErrorCodes.EMPLOYER_NOT_FOUND,
                 exception.getMessage(),
                 LocalDate.now()
         );
