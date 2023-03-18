@@ -2,8 +2,10 @@ package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.exceptions.EmployerEntityNotFoundException;
 import ru.akvine.prorise.repositories.EmployerRepository;
@@ -23,6 +25,7 @@ public class EmployerService {
     private String uuidGeneratorTarget;
 
     private final EmployerRepository employerRepository;
+    private final TeamService teamService;
     private final UuidGenerator uuidGenerator;
 
     public EmployerBean getByUuid(String uuid) {
@@ -46,6 +49,10 @@ public class EmployerService {
 
     public EmployerBean create(EmployerBean employerBean) {
         Preconditions.checkNotNull(employerBean, "employerBean is null");
+        Preconditions.checkNotNull(employerBean.getTeamUuid(), "employerBean.teamUuid is null");
+
+        TeamEntity teamEntity = teamService.getEntityByUuid(employerBean.getTeamUuid());
+
         EmployerEntity employerEntity = new EmployerEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setFirstName(employerBean.getFirstName())
@@ -53,7 +60,8 @@ public class EmployerService {
                 .setThirdName(employerBean.getThirdName())
                 .setType(employerBean.getEmployerType())
                 .setEmploymentDate(employerBean.getEmploymentDate())
-                .setDismissalDate(employerBean.getDismissalDate());
+                .setDismissalDate(employerBean.getDismissalDate())
+                .setTeam(teamEntity);
 
         return new EmployerBean(employerRepository.save(employerEntity));
     }
@@ -69,6 +77,12 @@ public class EmployerService {
                 .setType(employerBean.getEmployerType())
                 .setEmploymentDate(employerBean.getEmploymentDate())
                 .setDismissalDate(employerBean.getDismissalDate());
+
+        String teamUuid = employerBean.getTeamUuid();
+        if (StringUtils.isNotBlank(teamUuid)) {
+            TeamEntity teamEntity = teamService.getEntityByUuid(teamUuid);
+            employerEntity.setTeam(teamEntity);
+        }
 
         return new EmployerBean(employerRepository.save(employerEntity));
     }

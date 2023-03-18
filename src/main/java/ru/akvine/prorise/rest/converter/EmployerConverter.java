@@ -23,7 +23,8 @@ public class EmployerConverter {
                 .setThirdName(request.getThirdName())
                 .setEmployerType(EmployerType.safeValueOf(request.getEmployerType()))
                 .setEmploymentDate(request.getEmploymentDate())
-                .setDismissalDate(request.getEmploymentDate());
+                .setDismissalDate(request.getEmploymentDate())
+                .setTeamUuid(request.getTeamUuid());
     }
 
     public EmployerBean convertToEmployerBean(EmployerUpdateRequest request) {
@@ -35,7 +36,8 @@ public class EmployerConverter {
                 .setThirdName(request.getThirdName())
                 .setEmployerType(EmployerType.safeValueOf(request.getEmployerType()))
                 .setEmploymentDate(request.getEmploymentDate())
-                .setDismissalDate(request.getEmploymentDate());
+                .setDismissalDate(request.getEmploymentDate())
+                .setTeamUuid(request.getTeamUuid());
     }
 
     public EmployerResponse convertToEmployerResponse(EmployerBean employerBean) {

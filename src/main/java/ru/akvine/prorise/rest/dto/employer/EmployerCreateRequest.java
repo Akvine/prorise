@@ -20,6 +20,9 @@ public class EmployerCreateRequest {
     private String thirdName;
 
     @NotBlank
+    private String teamUuid;
+
+    @NotBlank
     private LocalDate employmentDate;
 
     @NotBlank

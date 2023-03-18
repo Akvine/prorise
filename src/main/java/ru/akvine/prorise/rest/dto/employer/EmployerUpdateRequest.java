@@ -22,6 +22,9 @@ public class EmployerUpdateRequest {
     @Nullable
     private String thirdName;
 
+    @Nullable
+    private String teamUuid;
+
     @NotBlank
     private LocalDate employmentDate;
 
