@@ -2,9 +2,11 @@ package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.TeamEntity;
+import ru.akvine.prorise.entities.department.DepartmentEntity;
 import ru.akvine.prorise.entities.task.TaskEntity;
 import ru.akvine.prorise.exceptions.TaskEntityNotFoundException;
 import ru.akvine.prorise.exceptions.TeamEntityNotFoundException;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TeamService {
     private final TeamRepository teamRepository;
+    private final DepartmentService departmentService;
     private final UuidGenerator uuidGenerator;
 
     @Value("${uuid.generator.length}")
@@ -51,22 +54,34 @@ public class TeamService {
 
     public TeamBean create(TeamBean teamBean) {
         Preconditions.checkNotNull(teamBean, "teamBean is null");
+        Preconditions.checkNotNull(teamBean.getDepartmentUuid(), "teamBean.departmentUuid is null");
+
+        DepartmentEntity departmentEntity = departmentService.getEntityByUuid(teamBean.getDepartmentUuid());
 
         TeamEntity teamEntity = new TeamEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(teamBean.getTitle())
-                .setDescription(teamBean.getDescription());
+                .setDescription(teamBean.getDescription())
+                .setDepartmentEntity(departmentEntity);
 
         return new TeamBean(teamRepository.save(teamEntity));
     }
 
     public TeamBean update(TeamBean teamBean) {
         Preconditions.checkNotNull(teamBean, "teamBean is null");
+
         TeamEntity teamEntity = getEntityByUuid(teamBean.getUuid());
         teamEntity
                 .setTitle(teamBean.getTitle())
                 .setDescription(teamBean.getDescription())
                 .setUpdatedDate(LocalDate.now());
+
+        String departmentUuid = teamBean.getDepartmentUuid();
+
+        if (StringUtils.isNotBlank(departmentUuid)) {
+            DepartmentEntity departmentEntity = departmentService.getEntityByUuid(departmentUuid);
+            teamEntity.setDepartmentEntity(departmentEntity);
+        }
 
         return new TeamBean(teamRepository.save(teamEntity));
     }

@@ -14,4 +14,7 @@ public class TeamCreateRequest {
 
     @Nullable
     private String description;
+
+    @NotBlank
+    private String departmentUuid;
 }

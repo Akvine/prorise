@@ -17,7 +17,8 @@ public class TeamConverter {
         Preconditions.checkNotNull(request, "teamCreateRequest is null");
         return new TeamBean()
                 .setTitle(request.getTitle())
-                .setDescription(request.getDescription());
+                .setDescription(request.getDescription())
+                .setDepartmentUuid(request.getDepartmentUuid());
     }
 
     public TeamBean convertToTeamBean(TeamUpdateRequest request) {
@@ -25,7 +26,8 @@ public class TeamConverter {
         return new TeamBean()
                 .setUuid(request.getUuid())
                 .setTitle(request.getTitle())
-                .setDescription(request.getDescription());
+                .setDescription(request.getDescription())
+                .setDepartmentUuid(request.getDepartmentUuid());
     }
 
     public TeamResponse convertToTeamResponse(TeamBean team) {

@@ -12,6 +12,9 @@ public class TeamUpdateRequest {
     @NotBlank
     private String uuid;
 
+    @Nullable
+    private String departmentUuid;
+
     @NotBlank
     private String title;
 
