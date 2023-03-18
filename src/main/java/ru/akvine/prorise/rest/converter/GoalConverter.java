@@ -18,7 +18,8 @@ public class GoalConverter {
         return new GoalBean()
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setDone(request.isDone());
+                .setDone(request.isDone())
+                .setProjectUuid(request.getProjectUuid());
     }
 
     public GoalBean convertToGoalBean(GoalUpdateRequest request) {
@@ -27,7 +28,8 @@ public class GoalConverter {
                 .setUuid(request.getUuid())
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setDone(request.isDone());
+                .setDone(request.isDone())
+                .setProjectUuid(request.getProjectUuid());
     }
 
     public GoalResponse convertToGoalResponse(GoalBean goalBean) {

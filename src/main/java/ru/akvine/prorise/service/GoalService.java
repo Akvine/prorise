@@ -2,9 +2,11 @@ package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.GoalEntity;
+import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.exceptions.GoalEntityNotFoundException;
 import ru.akvine.prorise.repositories.GoalRepository;
 import ru.akvine.prorise.service.dto.goal.GoalBean;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GoalService {
     private final GoalRepository goalRepository;
+    private final ProjectService projectService;
     private final UuidGenerator uuidGenerator;
 
     @Value("${uuid.generator.length}")
@@ -47,11 +50,14 @@ public class GoalService {
 
     public GoalBean create(GoalBean goalBean) {
         Preconditions.checkNotNull(goalBean, "goalBean is null");
+        Preconditions.checkNotNull(goalBean.getProjectUuid(), "goalBean.projectUuid is null");
 
+        ProjectEntity projectEntity = projectService.getEntityByUuid(goalBean.getProjectUuid());
         GoalEntity goalEntity = new GoalEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(goalBean.getTitle())
-                .setDescription(goalBean.getDescription());
+                .setDescription(goalBean.getDescription())
+                .setProject(projectEntity);
 
         return new GoalBean(goalRepository.save(goalEntity));
     }
@@ -64,6 +70,12 @@ public class GoalService {
                 .setDescription(goalBean.getDescription())
                 .setDone(goalBean.isDone())
                 .setUpdatedDate(LocalDate.now());
+
+        String projectUuid = goalBean.getProjectUuid();
+        if (StringUtils.isNotBlank(projectUuid)) {
+            ProjectEntity projectEntity = projectService.getEntityByUuid(projectUuid);
+            goalEntity.setProject(projectEntity);
+        }
 
         return new GoalBean(goalRepository.save(goalEntity));
     }

@@ -14,5 +14,8 @@ public class GoalCreateRequest {
     @NotBlank
     private String description;
 
+    @NotBlank
+    private String projectUuid;
+
     private boolean done;
 }

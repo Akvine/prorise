@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class GoalBean {
     private Long id;
     private String uuid;
+    private String projectUuid;
     private String title;
     private LocalDate createdDate;
     @Nullable
