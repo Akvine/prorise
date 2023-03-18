@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class TeamBean {
     private Long id;
     private String uuid;
+    @Nullable
     private String departmentUuid;
     private String title;
     private String description;

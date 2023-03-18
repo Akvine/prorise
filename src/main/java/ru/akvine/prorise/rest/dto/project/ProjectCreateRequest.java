@@ -14,5 +14,8 @@ public class ProjectCreateRequest {
     @NotBlank
     private String description;
 
+    @NotBlank
+    private String teamUuid;
+
     private boolean done;
 }

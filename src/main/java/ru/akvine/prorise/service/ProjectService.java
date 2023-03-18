@@ -3,9 +3,11 @@ package ru.akvine.prorise.service;
 import com.google.common.base.Preconditions;
 import liquibase.hub.model.Project;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.GoalEntity;
+import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.exceptions.GoalEntityNotFoundException;
 import ru.akvine.prorise.exceptions.ProjectEntityNotFoundException;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final TeamService teamService;
     private final UuidGenerator uuidGenerator;
 
     @Value("${uuid.generator.length}")
@@ -51,11 +54,15 @@ public class ProjectService {
 
     public ProjectBean create(ProjectBean projectBean) {
         Preconditions.checkNotNull(projectBean, "projectBean is null");
+        Preconditions.checkNotNull(projectBean.getTeamUuid(), "projectBean.teamUuid is null");
+
+        TeamEntity teamEntity = teamService.getEntityByUuid(projectBean.getTeamUuid());
 
         ProjectEntity projectEntity = new ProjectEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(projectBean.getTitle())
-                .setDescription(projectBean.getDescription());
+                .setDescription(projectBean.getDescription())
+                .setTeam(teamEntity);
 
         return new ProjectBean(projectRepository.save(projectEntity));
     }
@@ -70,6 +77,13 @@ public class ProjectService {
                 .setStartedDate(projectBean.getStartDate())
                 .setEndDate(projectBean.getEndDate())
                 .setUpdatedDate(LocalDate.now());
+
+        String teamUuid = projectBean.getTeamUuid();
+
+        if (StringUtils.isNotBlank(teamUuid)) {
+            TeamEntity teamEntity = teamService.getEntityByUuid(teamUuid);
+            projectEntity.setTeam(teamEntity);
+        }
 
         return new ProjectBean(projectRepository.save(projectEntity));
     }

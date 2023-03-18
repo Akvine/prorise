@@ -18,7 +18,8 @@ public class ProjectConverter {
         return new ProjectBean()
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setDone(request.isDone());
+                .setDone(request.isDone())
+                .setTeamUuid(request.getTeamUuid());
     }
 
     public ProjectBean convertToProjectBean(ProjectUpdateRequest request) {
@@ -27,7 +28,8 @@ public class ProjectConverter {
                 .setUuid(request.getUuid())
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setDone(request.isDone());
+                .setDone(request.isDone())
+                .setTeamUuid(request.getTeamUuid());
     }
 
     public ProjectResponse convertToProjectResponse(ProjectBean projectBean) {

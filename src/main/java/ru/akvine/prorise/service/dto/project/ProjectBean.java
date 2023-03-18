@@ -16,6 +16,8 @@ import java.time.LocalDate;
 public class ProjectBean {
     private Long id;
     private String uuid;
+    @Nullable
+    private String teamUuid;
     private String title;
     private LocalDate createdDate;
     @Nullable

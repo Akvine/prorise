@@ -2,6 +2,7 @@ package ru.akvine.prorise.rest.dto.project;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -20,6 +21,9 @@ public class ProjectUpdateRequest {
 
     @NotBlank
     private LocalDate endDate;
+
+    @Nullable
+    private String teamUuid;
 
     @NotBlank
     private String description;
