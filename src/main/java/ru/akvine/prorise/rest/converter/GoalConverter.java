@@ -37,6 +37,7 @@ public class GoalConverter {
         return new GoalResponse()
                 .setTitle(goalBean.getTitle())
                 .setDescription(goalBean.getDescription())
+                .setProjectUuid(goalBean.getProjectBean().getUuid())
                 .setDone(goalBean.isDone());
     }
 

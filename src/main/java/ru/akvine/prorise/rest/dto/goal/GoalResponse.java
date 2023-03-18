@@ -11,5 +11,7 @@ public class GoalResponse extends SuccessfulResponse {
 
     private String description;
 
+    private String projectUuid;
+
     private boolean done;
 }

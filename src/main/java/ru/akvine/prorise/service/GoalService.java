@@ -65,11 +65,16 @@ public class GoalService {
     public GoalBean update(GoalBean goalBean) {
         Preconditions.checkNotNull(goalBean, "goalBean is null");
         GoalEntity goalEntity = getEntityByUuid(goalBean.getUuid());
-        goalEntity
-                .setTitle(goalBean.getTitle())
-                .setDescription(goalBean.getDescription())
-                .setDone(goalBean.isDone())
-                .setUpdatedDate(LocalDate.now());
+
+        String title = goalBean.getTitle();
+        String description = goalBean.getDescription();
+
+        if (StringUtils.isNotBlank(title)) {
+            goalEntity.setTitle(title);
+        }
+        if (StringUtils.isNotBlank(description)) {
+            goalEntity.setDescription(description);
+        }
 
         String projectUuid = goalBean.getProjectUuid();
         if (StringUtils.isNotBlank(projectUuid)) {
@@ -77,6 +82,9 @@ public class GoalService {
             goalEntity.setProject(projectEntity);
         }
 
+        goalEntity
+                .setDone(goalBean.isDone())
+                .setUpdatedDate(LocalDate.now());
         return new GoalBean(goalRepository.save(goalEntity));
     }
 

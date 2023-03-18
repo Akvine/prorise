@@ -28,8 +28,8 @@ class ProjectControllerTest extends ApiBaseTest {
     @Test
     @DisplayName("Get project by uuid - SUCCESS")
     void getProjectByUuid_success() throws Exception {
-        String departmentUuid = Entities.PROJECT_UUID_1;
-        doGet(PROJECT_ENDPOINT + "/" + departmentUuid, null)
+        String projectUuid = Entities.PROJECT_UUID_1;
+        doGet(PROJECT_ENDPOINT + "/" + projectUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("project_title_1"))

@@ -12,13 +12,13 @@ public class GoalUpdateRequest {
     @NotBlank
     private String uuid;
 
-    @NotBlank
+    @Nullable
     private String title;
 
     @Nullable
     private String projectUuid;
 
-    @NotBlank
+    @Nullable
     private String description;
 
     private boolean done;
