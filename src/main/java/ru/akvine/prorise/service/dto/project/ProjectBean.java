@@ -41,7 +41,7 @@ public class ProjectBean {
         this.createdDate = entity.getCreatedDate();
         this.updatedDate = entity.getUpdatedDate();
         this.deletedDate = entity.getDeletedDate();
-        this.startDate = entity.getStartedDate();
+        this.startDate = entity.getStartDate();
         this.endDate = entity.getEndDate();
         this.description = entity.getDescription();
         this.projectType = entity.getType();

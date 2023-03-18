@@ -5,7 +5,6 @@ import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 
 @Data
 @Accessors(chain = true)
@@ -13,19 +12,22 @@ public class ProjectUpdateRequest {
     @NotBlank
     private String uuid;
 
-    @NotBlank
+    @Nullable
     private String title;
 
-    @NotBlank
-    private LocalDate startDate;
+    @Nullable
+    private String startDate;
 
-    @NotBlank
-    private LocalDate endDate;
+    @Nullable
+    private String endDate;
 
     @Nullable
     private String teamUuid;
 
-    @NotBlank
+    @Nullable
+    private String type;
+
+    @Nullable
     private String description;
 
     private boolean done;

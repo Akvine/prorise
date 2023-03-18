@@ -19,9 +19,9 @@ public class ProjectResponse extends SuccessfulResponse {
 
     private String description;
 
-    private String projectType;
+    private String type;
 
-    private List<GoalResponse> goals;
+    private String teamUuid;
 
     private boolean done;
 }

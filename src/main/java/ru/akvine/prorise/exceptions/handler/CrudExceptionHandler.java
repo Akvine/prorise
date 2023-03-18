@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.akvine.prorise.exceptions.DepartmentNotFoundException;
+import ru.akvine.prorise.exceptions.ProjectEntityNotFoundException;
 import ru.akvine.prorise.exceptions.TeamEntityNotFoundException;
 import ru.akvine.prorise.rest.dto.common.CommonErrorCodes;
 import ru.akvine.prorise.rest.dto.common.ErrorResponse;
@@ -29,6 +30,16 @@ public class CrudExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleTeamEntityNotFoundException(TeamEntityNotFoundException exception) {
         ErrorResponse errorResponse = new ErrorResponse(
                 CommonErrorCodes.TEAM_NOT_FOUND,
+                exception.getMessage(),
+                LocalDate.now()
+        );
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ProjectEntityNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleProjectEntityNotFoundException(ProjectEntityNotFoundException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                CommonErrorCodes.PROJECT_NOT_FOUND,
                 exception.getMessage(),
                 LocalDate.now()
         );

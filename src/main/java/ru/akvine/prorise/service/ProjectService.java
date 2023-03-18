@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.GoalEntity;
 import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.project.ProjectEntity;
+import ru.akvine.prorise.entities.project.ProjectType;
 import ru.akvine.prorise.exceptions.GoalEntityNotFoundException;
 import ru.akvine.prorise.exceptions.ProjectEntityNotFoundException;
 import ru.akvine.prorise.repositories.ProjectRepository;
@@ -57,12 +58,14 @@ public class ProjectService {
         Preconditions.checkNotNull(projectBean.getTeamUuid(), "projectBean.teamUuid is null");
 
         TeamEntity teamEntity = teamService.getEntityByUuid(projectBean.getTeamUuid());
-
         ProjectEntity projectEntity = new ProjectEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(projectBean.getTitle())
                 .setDescription(projectBean.getDescription())
-                .setTeam(teamEntity);
+                .setTeam(teamEntity)
+                .setType(projectBean.getProjectType())
+                .setStartDate(projectBean.getStartDate())
+                .setEndDate(projectBean.getEndDate());
 
         return new ProjectBean(projectRepository.save(projectEntity));
     }
@@ -70,21 +73,43 @@ public class ProjectService {
     public ProjectBean update(ProjectBean projectBean) {
         Preconditions.checkNotNull(projectBean, "projectBean is null");
         ProjectEntity projectEntity = getEntityByUuid(projectBean.getUuid());
-        projectEntity
-                .setTitle(projectBean.getTitle())
-                .setDescription(projectBean.getDescription())
-                .setDone(projectBean.isDone())
-                .setStartedDate(projectBean.getStartDate())
-                .setEndDate(projectBean.getEndDate())
-                .setUpdatedDate(LocalDate.now());
 
+        String title = projectBean.getTitle();
+        String description = projectBean.getDescription();
+        LocalDate startDate = projectBean.getStartDate();
+        LocalDate endDate = projectBean.getEndDate();
+        boolean done = projectBean.isDone();
+        ProjectType type = projectBean.getProjectType();
         String teamUuid = projectBean.getTeamUuid();
+
+        if (StringUtils.isNotBlank(title)) {
+            projectEntity.setTitle(title);
+        }
+
+        if (StringUtils.isNotBlank(description)) {
+            projectEntity.setDescription(description);
+        }
+
+        if (startDate != null) {
+            projectEntity.setStartDate(startDate);
+        }
+
+        if (endDate != null) {
+            projectEntity.setEndDate(endDate);
+        }
+
+        if (type != null) {
+            projectEntity.setType(type);
+        }
 
         if (StringUtils.isNotBlank(teamUuid)) {
             TeamEntity teamEntity = teamService.getEntityByUuid(teamUuid);
             projectEntity.setTeam(teamEntity);
         }
 
+        projectEntity
+                .setDone(done)
+                .setUpdatedDate(LocalDate.now());
         return new ProjectBean(projectRepository.save(projectEntity));
     }
 

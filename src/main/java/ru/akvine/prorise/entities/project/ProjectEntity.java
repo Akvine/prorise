@@ -25,8 +25,8 @@ public class ProjectEntity {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "STARTED_DATE", nullable = false)
-    private LocalDate startedDate;
+    @Column(name = "START_DATE", nullable = false)
+    private LocalDate startDate;
 
     @Nullable
     @Column(name = "END_DATE")
