@@ -24,7 +24,8 @@ public class TaskConverter {
                 .setPriorityType(PriorityType.safeValueOf(request.getPriority()))
                 .setStatusType(StatusType.safeValueOf(request.getStatus()))
                 .setEmployerUuid(request.getEmployerUuid())
-                .setDone(request.isDone());
+                .setDone(request.isDone())
+                .setEmployerUuid(request.getGoalUuid());
     }
 
     public TaskBean convertToTaskBean(TaskUpdateRequest request) {
@@ -36,7 +37,8 @@ public class TaskConverter {
                 .setPriorityType(PriorityType.safeValueOf(request.getPriority()))
                 .setStatusType(StatusType.safeValueOf(request.getStatus()))
                 .setEmployerUuid(request.getEmployerUuid())
-                .setDone(request.isDone());
+                .setDone(request.isDone())
+                .setGoalUuid(request.getGoalUuid());
     }
 
     public TaskResponse convertToTaskResponse(TaskBean taskBean) {

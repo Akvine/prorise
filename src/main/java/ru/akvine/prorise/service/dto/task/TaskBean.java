@@ -21,6 +21,7 @@ public class TaskBean {
     private String title;
     private String description;
     private String employerUuid;
+    private String goalUuid;
     private LocalDate createdDate;
     @Nullable
     private LocalDate updatedDate;

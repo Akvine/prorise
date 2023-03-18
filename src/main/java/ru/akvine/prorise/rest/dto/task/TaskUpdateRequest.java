@@ -2,6 +2,7 @@ package ru.akvine.prorise.rest.dto.task;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotBlank;
 
@@ -23,8 +24,11 @@ public class TaskUpdateRequest {
     @NotBlank
     private String status;
 
-    @NotBlank
+    @Nullable
     private String employerUuid;
+
+    @Nullable
+    private String goalUuid;
 
     private boolean done;
 }

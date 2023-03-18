@@ -2,8 +2,11 @@ package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.akvine.prorise.entities.GoalEntity;
+import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.entities.task.TaskEntity;
 import ru.akvine.prorise.exceptions.TaskEntityNotFoundException;
 import ru.akvine.prorise.repositories.TaskRepository;
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final EmployerService employerService;
+    private final GoalService goalService;
     private final UuidGenerator uuidGenerator;
 
     @Value("${uuid.generator.length}")
@@ -47,11 +52,18 @@ public class TaskService {
 
     public TaskBean create(TaskBean taskBean) {
         Preconditions.checkNotNull(taskBean, "taskBean is null");
+        Preconditions.checkNotNull(taskBean.getEmployerUuid(), "taskBean.goalUuid is null");
+        Preconditions.checkNotNull(taskBean.getGoalUuid(), "taskBean.employerUuid is null");
+
+        EmployerEntity employerEntity = employerService.getEntityByUuid(taskBean.getEmployerUuid());
+        GoalEntity goalEntity = goalService.getEntityByUuid(taskBean.getGoalUuid());
 
         TaskEntity taskEntity = new TaskEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(taskBean.getTitle())
-                .setDescription(taskBean.getDescription());
+                .setDescription(taskBean.getDescription())
+                .setEmployer(employerEntity)
+                .setGoal(goalEntity);
 
         return new TaskBean(taskRepository.save(taskEntity));
     }
@@ -66,6 +78,17 @@ public class TaskService {
                 .setStartDate(taskBean.getStartDate())
                 .setEndDate(taskBean.getEndDate())
                 .setUpdatedDate(LocalDate.now());
+
+        String employerUuid = taskBean.getEmployerUuid();
+        String goalUuid = taskBean.getGoalUuid();
+        if (StringUtils.isNotBlank(employerUuid)) {
+            EmployerEntity employerEntity = employerService.getEntityByUuid(employerUuid);
+            taskEntity.setEmployer(employerEntity);
+        }
+        if (StringUtils.isNotBlank(goalUuid)) {
+            GoalEntity goalEntity = goalService.getEntityByUuid(goalUuid);
+            taskEntity.setGoal(goalEntity);
+        }
 
         return new TaskBean(taskRepository.save(taskEntity));
     }

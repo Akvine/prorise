@@ -23,5 +23,8 @@ public class TaskCreateRequest {
     @NotBlank
     private String employerUuid;
 
+    @NotBlank
+    private String goalUuid;
+
     private boolean done;
 }
