@@ -18,5 +18,5 @@ public class DepartmentResponse extends SuccessfulResponse {
     private String description;
 
     @NotBlank
-    private String departmentType;
+    private String type;
 }

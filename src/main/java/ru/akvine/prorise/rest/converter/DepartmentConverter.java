@@ -28,7 +28,7 @@ public class DepartmentConverter {
                 .setUuid(request.getUuid())
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setType(DepartmentType.safeValueOf(request.getType()));
+                .setType(request.getType() == null ? null : DepartmentType.safeValueOf(request.getType()));
     }
 
     public DepartmentResponse convertToDepartmentResponse(DepartmentBean departmentBean) {
@@ -36,7 +36,7 @@ public class DepartmentConverter {
         return new DepartmentResponse()
                 .setTitle(departmentBean.getTitle())
                 .setDescription(departmentBean.getDescription())
-                .setDepartmentType(departmentBean.getType().name());
+                .setType(departmentBean.getDepartmentType().getType().name());
     }
 
     public DepartmentListResponse convertToDepartmentListResponse(List<DepartmentBean> departments) {

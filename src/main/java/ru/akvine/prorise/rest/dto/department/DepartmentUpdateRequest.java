@@ -12,12 +12,12 @@ public class DepartmentUpdateRequest {
     @NotBlank
     private String uuid;
 
-    @NotBlank
+    @Nullable
     private String title;
 
     @Nullable
     private String description;
 
-    @NotBlank
+    @Nullable
     private String type;
 }

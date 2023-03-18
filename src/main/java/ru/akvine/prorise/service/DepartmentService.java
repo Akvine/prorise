@@ -2,6 +2,7 @@ package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.department.DepartmentEntity;
@@ -69,7 +70,34 @@ public class DepartmentService {
         return new DepartmentBean(departmentRepository.save(departmentEntity));
     }
 
-    public DepartmentBean update(DepartmentBean employerBean) {
+    public DepartmentBean update(DepartmentBean departmentBean) {
+        Preconditions.checkNotNull(departmentBean, "departmentBean is null");
+        DepartmentEntity departmentEntity = getEntityByUuid(departmentBean.getUuid());
+
+        String title = departmentBean.getTitle();
+        String description = departmentBean.getDescription();
+
+        if (StringUtils.isNotBlank(title)) {
+            departmentEntity.setTitle(title);
+        }
+        if (StringUtils.isNotBlank(description)) {
+            departmentEntity.setDescription(description);
+        }
+
+        DepartmentType departmentType = departmentBean.getType();
+        if (departmentType != null) {
+            DepartmentTypeEntity departmentTypeEntity = departmentTypeRepository
+                    .getByType(departmentType)
+                    .orElseThrow(() -> new DepartmentTypeNotFoundException("Type not found by = " + departmentType));
+            departmentEntity.setDepartmentType(departmentTypeEntity);
+        }
+
+        departmentEntity
+                .setUpdatedDate(LocalDate.now());
+        return new DepartmentBean(departmentRepository.save(departmentEntity));
+    }
+
+    public DepartmentBean patch(DepartmentBean employerBean) {
         Preconditions.checkNotNull(employerBean, "departmentBean is null");
         DepartmentEntity departmentEntity = getEntityByUuid(employerBean.getUuid());
         departmentEntity
