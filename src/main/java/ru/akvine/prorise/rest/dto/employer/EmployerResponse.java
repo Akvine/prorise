@@ -27,11 +27,11 @@ public class EmployerResponse extends SuccessfulResponse {
     private String thirdName;
 
     @NotBlank
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate employmentDate;
 
     @Nullable
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dismissalDate;
 
     @NotBlank

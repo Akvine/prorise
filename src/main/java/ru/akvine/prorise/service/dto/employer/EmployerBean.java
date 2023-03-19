@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.entities.employer.EmployerType;
+import ru.akvine.prorise.service.dto.team.TeamBean;
 
 import java.time.LocalDate;
 
@@ -31,6 +32,7 @@ public class EmployerBean {
     @Nullable
     private LocalDate dismissalDate;
     private EmployerType employerType;
+    private TeamBean team;
 
     public EmployerBean(EmployerEntity employerEntity) {
         this.id = employerEntity.getId();
@@ -45,5 +47,6 @@ public class EmployerBean {
         this.employmentDate = employerEntity.getEmploymentDate();
         this.dismissalDate = employerEntity.getDismissalDate();
         this.employerType = employerEntity.getType();
+        this.team = new TeamBean(employerEntity.getTeam());
     }
 }

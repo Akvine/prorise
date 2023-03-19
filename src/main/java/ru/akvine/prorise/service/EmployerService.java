@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
+import ru.akvine.prorise.entities.employer.EmployerType;
 import ru.akvine.prorise.exceptions.EmployerEntityNotFoundException;
 import ru.akvine.prorise.repositories.EmployerRepository;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
@@ -69,14 +70,32 @@ public class EmployerService {
     public EmployerBean update(EmployerBean employerBean) {
         Preconditions.checkNotNull(employerBean, "employerBean is null");
         EmployerEntity employerEntity = getEntityByUuid(employerBean.getUuid());
-        employerEntity
-                .setUpdatedDate(LocalDate.now())
-                .setFirstName(employerBean.getFirstName())
-                .setSecondName(employerBean.getSecondName())
-                .setThirdName(employerBean.getThirdName())
-                .setType(employerBean.getEmployerType())
-                .setEmploymentDate(employerBean.getEmploymentDate())
-                .setDismissalDate(employerBean.getDismissalDate());
+
+        String firstName = employerBean.getFirstName();
+        String secondName = employerBean.getSecondName();
+        String thirdName = employerBean.getThirdName();
+        EmployerType type = employerBean.getEmployerType();
+        LocalDate employmentDate = employerBean.getEmploymentDate();
+        LocalDate dismissalDate = employerBean.getDismissalDate();
+
+        if (StringUtils.isNotBlank(firstName)) {
+            employerEntity.setFirstName(firstName);
+        }
+        if (StringUtils.isNotBlank(secondName)) {
+            employerEntity.setSecondName(secondName);
+        }
+        if (StringUtils.isNotBlank(thirdName)) {
+            employerEntity.setThirdName(thirdName);
+        }
+        if (type != null) {
+            employerEntity.setType(type);
+        }
+        if (employmentDate != null) {
+            employerEntity.setEmploymentDate(employmentDate);
+        }
+        if (dismissalDate != null) {
+            employerEntity.setDismissalDate(dismissalDate);
+        }
 
         String teamUuid = employerBean.getTeamUuid();
         if (StringUtils.isNotBlank(teamUuid)) {
@@ -84,6 +103,8 @@ public class EmployerService {
             employerEntity.setTeam(teamEntity);
         }
 
+        employerEntity
+                .setUpdatedDate(LocalDate.now());
         return new EmployerBean(employerRepository.save(employerEntity));
     }
 

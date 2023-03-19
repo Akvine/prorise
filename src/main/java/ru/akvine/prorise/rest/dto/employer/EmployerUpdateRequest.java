@@ -13,10 +13,10 @@ public class EmployerUpdateRequest {
     @NotBlank
     private String uuid;
 
-    @NotBlank
+    @Nullable
     private String firstName;
 
-    @NotBlank
+    @Nullable
     private String secondName;
 
     @Nullable
@@ -25,12 +25,12 @@ public class EmployerUpdateRequest {
     @Nullable
     private String teamUuid;
 
-    @NotBlank
+    @Nullable
     private LocalDate employmentDate;
 
-    @NotBlank
+    @Nullable
     private LocalDate dismissalDate;
 
-    @NotBlank
+    @Nullable
     private String employerType;
 }

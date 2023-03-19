@@ -23,10 +23,10 @@ public class EmployerCreateRequest {
     private String teamUuid;
 
     @NotBlank
-    private LocalDate employmentDate;
+    private String employmentDate;
 
-    @NotBlank
-    private LocalDate dismissalDate;
+    @Nullable
+    private String dismissalDate;
 
     @NotBlank
     private String employerType;
