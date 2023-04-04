@@ -13,11 +13,16 @@ public class TestConstants {
         String EMPLOYER_UUID_1 = "employer_uuid_1";
     }
 
-    // Endpoints
-    public static final String DEPARTMENT_ENDPOINT = "/departments";
-    public static final String TEAM_ENDPOINT = "/teams";
-    public static final String PROJECT_ENDPOINT = "/projects";
-    public static final String GOAL_ENDPOINT = "/goals";
-    public static final String TASK_ENDPOINT = "/tasks";
-    public static final String EMPLOYER_ENDPOINT = "/employers";
+    public interface Endpoints {
+        // Entities
+        String DEPARTMENT_ENDPOINT = "/departments";
+        String TEAM_ENDPOINT = "/teams";
+        String PROJECT_ENDPOINT = "/projects";
+        String GOAL_ENDPOINT = "/goals";
+        String TASK_ENDPOINT = "/tasks";
+        String EMPLOYER_ENDPOINT = "/employers";
+
+        // Business
+        String KPI_ENDPOINT = "/kpi";
+    }
 }

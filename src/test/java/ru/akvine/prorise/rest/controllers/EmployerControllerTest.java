@@ -12,15 +12,14 @@ import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.akvine.prorise.TestConstants.EMPLOYER_ENDPOINT;
-import static ru.akvine.prorise.TestConstants.Entities;
+import static ru.akvine.prorise.TestConstants.*;
 
 @Transactional
 class EmployerControllerTest extends ApiBaseTest {
     @Test
     @DisplayName("Get employers - SUCCESS")
     void getEmployers_success() throws Exception {
-        doGet(EMPLOYER_ENDPOINT, null)
+        doGet(Endpoints.EMPLOYER_ENDPOINT, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.employers").isNotEmpty());
@@ -30,7 +29,7 @@ class EmployerControllerTest extends ApiBaseTest {
     @DisplayName("Get employer by uuid - SUCCESS")
     void getEmployerByUuid_success() throws Exception {
         String employerUuid = Entities.EMPLOYER_UUID_1;
-        doGet(EMPLOYER_ENDPOINT + "/" + employerUuid, null)
+        doGet(Endpoints.EMPLOYER_ENDPOINT + "/" + employerUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.firstName").value("employer_first_name_1"))
@@ -46,7 +45,7 @@ class EmployerControllerTest extends ApiBaseTest {
     @DisplayName("Get employer by uuid - FAIL - not found")
     void getEmployerUuid_fail_notFound() throws Exception {
         String notExistsUuid = TestConstants.Entities.ENTITY_NOT_FOUND;
-        doGet(EMPLOYER_ENDPOINT + "/" + notExistsUuid, null)
+        doGet(Endpoints.EMPLOYER_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }
@@ -62,7 +61,7 @@ class EmployerControllerTest extends ApiBaseTest {
                 .setEmploymentDate(LocalDate.now().toString())
                 .setTeamUuid(Entities.TEAM_UUID_1);
 
-        doPost(EMPLOYER_ENDPOINT, request)
+        doPost(Endpoints.EMPLOYER_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.firstName").value("Some new first name"))
@@ -83,7 +82,7 @@ class EmployerControllerTest extends ApiBaseTest {
                 .setFirstName("Some new first name")
                 .setEmployerType(EmployerType.LEAD.name());
 
-        doPut(EMPLOYER_ENDPOINT, request)
+        doPut(Endpoints.EMPLOYER_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.firstName").value("Some new first name"))
@@ -97,7 +96,7 @@ class EmployerControllerTest extends ApiBaseTest {
     @DisplayName("Delete employer - SUCCESS")
     void deleteEmployer_success() throws Exception {
         String employerUuid = Entities.EMPLOYER_UUID_1;
-        doDelete(EMPLOYER_ENDPOINT + "/" + employerUuid, null)
+        doDelete(Endpoints.EMPLOYER_ENDPOINT + "/" + employerUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"));
     }
@@ -106,7 +105,7 @@ class EmployerControllerTest extends ApiBaseTest {
     @DisplayName("Delete employer by uuid - FAIL - not found")
     void deleteEmployerByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doDelete(EMPLOYER_ENDPOINT + "/" + notExistsUuid, null)
+        doDelete(Endpoints.EMPLOYER_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }

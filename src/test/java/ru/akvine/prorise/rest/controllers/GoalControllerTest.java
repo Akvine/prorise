@@ -9,15 +9,14 @@ import ru.akvine.prorise.rest.dto.goal.GoalUpdateRequest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.akvine.prorise.TestConstants.Entities;
-import static ru.akvine.prorise.TestConstants.GOAL_ENDPOINT;
+import static ru.akvine.prorise.TestConstants.*;
 
 @Transactional
 class GoalControllerTest extends ApiBaseTest {
     @Test
     @DisplayName("Get goals - SUCCESS")
     void getGoals_success() throws Exception {
-        doGet(GOAL_ENDPOINT, null)
+        doGet(Endpoints.GOAL_ENDPOINT, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.goals").isNotEmpty());
@@ -27,7 +26,7 @@ class GoalControllerTest extends ApiBaseTest {
     @DisplayName("Get goal by uuid - SUCCESS")
     void getGoalByUuid_success() throws Exception {
         String goalUuid = Entities.GOAL_UUID_1;
-        doGet(GOAL_ENDPOINT + "/" + goalUuid, null)
+        doGet(Endpoints.GOAL_ENDPOINT + "/" + goalUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("goal_title_1"))
@@ -39,7 +38,7 @@ class GoalControllerTest extends ApiBaseTest {
     @DisplayName("Get goal by uuid - FAIL - not found")
     void getGoalUuid_fail_notFound() throws Exception {
         String notExistsUuid = TestConstants.Entities.ENTITY_NOT_FOUND;
-        doGet(GOAL_ENDPOINT + "/" + notExistsUuid, null)
+        doGet(Endpoints.GOAL_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }
@@ -52,7 +51,7 @@ class GoalControllerTest extends ApiBaseTest {
                 .setDescription("Some new description")
                 .setProjectUuid(Entities.PROJECT_UUID_1);
 
-        doPost(GOAL_ENDPOINT, request)
+        doPost(Endpoints.GOAL_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
@@ -67,7 +66,7 @@ class GoalControllerTest extends ApiBaseTest {
         GoalUpdateRequest request = new GoalUpdateRequest()
                 .setUuid(goalUuid)
                 .setDescription("Some new description");
-        doPut(GOAL_ENDPOINT, request)
+        doPut(Endpoints.GOAL_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("goal_title_1"))
@@ -79,7 +78,7 @@ class GoalControllerTest extends ApiBaseTest {
     @DisplayName("Delete goal - SUCCESS")
     void deleteGoal_success() throws Exception {
         String goalUuid = Entities.GOAL_UUID_1;
-        doDelete(GOAL_ENDPOINT + "/" + goalUuid, null)
+        doDelete(Endpoints.GOAL_ENDPOINT + "/" + goalUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"));
     }
@@ -88,7 +87,7 @@ class GoalControllerTest extends ApiBaseTest {
     @DisplayName("Delete goal by uuid - FAIL - not found")
     void deleteGoalByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doDelete(GOAL_ENDPOINT + "/" + notExistsUuid, null)
+        doDelete(Endpoints.GOAL_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }

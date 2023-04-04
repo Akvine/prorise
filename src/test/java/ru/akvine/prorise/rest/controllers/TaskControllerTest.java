@@ -12,15 +12,14 @@ import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.akvine.prorise.TestConstants.Entities;
-import static ru.akvine.prorise.TestConstants.TASK_ENDPOINT;
+import static ru.akvine.prorise.TestConstants.*;
 
 @Transactional
 class TaskControllerTest extends ApiBaseTest {
     @Test
     @DisplayName("Get tasks - SUCCESS")
     void getTasks_success() throws Exception {
-        doGet(TASK_ENDPOINT, null)
+        doGet(Endpoints.TASK_ENDPOINT, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.tasks").isNotEmpty());
@@ -30,7 +29,7 @@ class TaskControllerTest extends ApiBaseTest {
     @DisplayName("Get task by uuid - SUCCESS")
     void getTaskByUuid_success() throws Exception {
         String taskUuid = Entities.TASK_UUID_1;
-        doGet(TASK_ENDPOINT + "/" + taskUuid, null)
+        doGet(Endpoints.TASK_ENDPOINT + "/" + taskUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("task_title_1"))
@@ -47,7 +46,7 @@ class TaskControllerTest extends ApiBaseTest {
     @DisplayName("Get task by uuid - FAIL - not found")
     void getTaskUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doGet(TASK_ENDPOINT + "/" + notExistsUuid, null)
+        doGet(Endpoints.TASK_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }
@@ -64,7 +63,7 @@ class TaskControllerTest extends ApiBaseTest {
                 .setPriority(PriorityType.MEDIUM.name())
                 .setStatus(StatusType.IN_REVIEW.name());
 
-        doPost(TASK_ENDPOINT, request)
+        doPost(Endpoints.TASK_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
@@ -85,7 +84,7 @@ class TaskControllerTest extends ApiBaseTest {
                 .setDescription("Some new description")
                 .setStartDate(LocalDate.now().toString());
 
-        doPut(TASK_ENDPOINT, request)
+        doPut(Endpoints.TASK_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
@@ -98,7 +97,7 @@ class TaskControllerTest extends ApiBaseTest {
     @DisplayName("Delete task - SUCCESS")
     void deleteTask_success() throws Exception {
         String taskUuid = Entities.TASK_UUID_1;
-        doDelete(TASK_ENDPOINT + "/" + taskUuid, null)
+        doDelete(Endpoints.TASK_ENDPOINT + "/" + taskUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"));
     }
@@ -107,7 +106,7 @@ class TaskControllerTest extends ApiBaseTest {
     @DisplayName("Delete task by uuid - FAIL - not found")
     void deleteTaskByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doDelete(TASK_ENDPOINT + "/" + notExistsUuid, null)
+        doDelete(Endpoints.TASK_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }

@@ -17,7 +17,7 @@ class DepartmentControllerTest extends ApiBaseTest {
     @Test
     @DisplayName("Get departments - SUCCESS")
     void getDepartments_success() throws Exception {
-        doGet(DEPARTMENT_ENDPOINT, null)
+        doGet(Endpoints.DEPARTMENT_ENDPOINT, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.departments").isNotEmpty());
@@ -27,7 +27,7 @@ class DepartmentControllerTest extends ApiBaseTest {
     @DisplayName("Get department by uuid - SUCCESS")
     void getDepartmentByUuid_success() throws Exception {
         String departmentUuid = Entities.DEPARTMENT_UUID_1;
-        doGet(DEPARTMENT_ENDPOINT + "/" + departmentUuid, null)
+        doGet(Endpoints.DEPARTMENT_ENDPOINT + "/" + departmentUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("department_title_1"))
@@ -39,7 +39,7 @@ class DepartmentControllerTest extends ApiBaseTest {
     @DisplayName("Get department by uuid - FAIL - not found")
     void getDepartmentByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doGet(DEPARTMENT_ENDPOINT + "/" + notExistsUuid, null)
+        doGet(Endpoints.DEPARTMENT_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }
@@ -52,7 +52,7 @@ class DepartmentControllerTest extends ApiBaseTest {
                 .setDescription("Some new description")
                 .setType(DepartmentType.HR.name());
 
-        doPost(DEPARTMENT_ENDPOINT, request)
+        doPost(Endpoints.DEPARTMENT_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new department"))
@@ -67,7 +67,7 @@ class DepartmentControllerTest extends ApiBaseTest {
         DepartmentUpdateRequest request = new DepartmentUpdateRequest()
                 .setUuid(departmentUuid)
                 .setTitle("Some new title");
-        doPut(DEPARTMENT_ENDPOINT, request)
+        doPut(Endpoints.DEPARTMENT_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
@@ -79,7 +79,7 @@ class DepartmentControllerTest extends ApiBaseTest {
     @DisplayName("Delete department - SUCCESS")
     void deleteDepartment_success() throws Exception {
         String departmentUuid = Entities.DEPARTMENT_UUID_1;
-        doDelete(DEPARTMENT_ENDPOINT + "/" + departmentUuid, null)
+        doDelete(Endpoints.DEPARTMENT_ENDPOINT + "/" + departmentUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"));
     }
@@ -88,7 +88,7 @@ class DepartmentControllerTest extends ApiBaseTest {
     @DisplayName("Delete department by uuid - FAIL - not found")
     void deleteDepartmentByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doDelete(DEPARTMENT_ENDPOINT + "/" + notExistsUuid, null)
+        doDelete(Endpoints.DEPARTMENT_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }

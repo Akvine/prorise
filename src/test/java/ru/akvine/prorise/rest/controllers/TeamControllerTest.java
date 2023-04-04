@@ -8,15 +8,14 @@ import ru.akvine.prorise.rest.dto.team.TeamUpdateRequest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.akvine.prorise.TestConstants.Entities;
-import static ru.akvine.prorise.TestConstants.TEAM_ENDPOINT;
+import static ru.akvine.prorise.TestConstants.*;
 
 @Transactional
 class TeamControllerTest extends ApiBaseTest {
     @Test
     @DisplayName("Get teams - SUCCESS")
     void getTeams_success() throws Exception {
-        doGet(TEAM_ENDPOINT, null)
+        doGet(Endpoints.TEAM_ENDPOINT, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.teams").isNotEmpty());
@@ -26,7 +25,7 @@ class TeamControllerTest extends ApiBaseTest {
     @DisplayName("Get team by uuid - SUCCESS")
     void getTeamByUuid_success() throws Exception {
         String departmentUuid = Entities.TEAM_UUID_1;
-        doGet(TEAM_ENDPOINT + "/" + departmentUuid, null)
+        doGet(Endpoints.TEAM_ENDPOINT + "/" + departmentUuid, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("team_title_1"))
@@ -38,7 +37,7 @@ class TeamControllerTest extends ApiBaseTest {
     @DisplayName("Get team by uuid - FAIL - not found")
     void getTeamByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doGet(TEAM_ENDPOINT + "/" + notExistsUuid, null)
+        doGet(Endpoints.TEAM_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }
@@ -51,7 +50,7 @@ class TeamControllerTest extends ApiBaseTest {
                 .setDescription("Some new description")
                 .setDepartmentUuid(Entities.DEPARTMENT_UUID_1);
 
-        doPost(TEAM_ENDPOINT, request)
+        doPost(Endpoints.TEAM_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
@@ -66,7 +65,7 @@ class TeamControllerTest extends ApiBaseTest {
         TeamUpdateRequest request = new TeamUpdateRequest()
                 .setUuid(teamUuid)
                 .setTitle("Some new title");
-        doPut(TEAM_ENDPOINT, request)
+        doPut(Endpoints.TEAM_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
@@ -78,7 +77,7 @@ class TeamControllerTest extends ApiBaseTest {
     @DisplayName("Delete team - SUCCESS")
     void deleteTeam_success() throws Exception {
         String teamUuid1 = Entities.TEAM_UUID_1;
-        doDelete(TEAM_ENDPOINT + "/" + teamUuid1, null)
+        doDelete(Endpoints.TEAM_ENDPOINT + "/" + teamUuid1, null)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"));
     }
@@ -87,7 +86,7 @@ class TeamControllerTest extends ApiBaseTest {
     @DisplayName("Delete team by uuid - FAIL - not found")
     void deleteTeamByUuid_fail_notFound() throws Exception {
         String notExistsUuid = Entities.ENTITY_NOT_FOUND;
-        doDelete(TEAM_ENDPOINT + "/" + notExistsUuid, null)
+        doDelete(Endpoints.TEAM_ENDPOINT + "/" + notExistsUuid, null)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.responseStatus").value("FAIL"));
     }
