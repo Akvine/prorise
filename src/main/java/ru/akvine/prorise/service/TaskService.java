@@ -129,4 +129,12 @@ public class TaskService {
         taskEntity.setDeletedDate(LocalDate.now());
         taskRepository.save(taskEntity);
     }
+
+    public List<TaskBean> getCompletedTask() {
+        return taskRepository
+                .findByCompleted()
+                .stream()
+                .map(TaskBean::new)
+                .collect(Collectors.toList());
+    }
 }

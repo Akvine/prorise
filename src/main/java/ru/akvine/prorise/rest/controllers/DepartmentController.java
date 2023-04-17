@@ -1,6 +1,7 @@
 package ru.akvine.prorise.rest.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.akvine.prorise.rest.controllers.meta.DepartmentControllerMeta;
@@ -36,14 +37,14 @@ public class DepartmentController implements DepartmentControllerMeta {
     }
 
     @Override
-    public Response create(DepartmentCreateRequest request) {
+    public Response create(@RequestBody DepartmentCreateRequest request) {
         DepartmentBean departmentBean = departmentConverter.convertToDepartmentBean(request);
         DepartmentBean createdBean = departmentService.create(departmentBean);
         return departmentConverter.convertToDepartmentResponse(createdBean);
     }
 
     @Override
-    public Response update(DepartmentUpdateRequest request) {
+    public Response update(@RequestBody DepartmentUpdateRequest request) {
         DepartmentBean departmentBean = departmentConverter.convertToDepartmentBean(request);
         DepartmentBean updatedBean = departmentService.update(departmentBean);
         return departmentConverter.convertToDepartmentResponse(updatedBean);

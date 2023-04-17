@@ -59,15 +59,22 @@ public class DepartmentService {
         Preconditions.checkNotNull(departmentBean, "departmentBean is null");
 
         DepartmentType type = departmentBean.getType();
-        DepartmentTypeEntity departmentTypeEntity = departmentTypeRepository.getByType(type)
-                .orElseThrow(() -> new DepartmentTypeNotFoundException("DepartmentType not found by type = " + type.name()));
+        DepartmentTypeEntity entity = new DepartmentTypeEntity()
+                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setDescription("some description")
+                .setCode("some code")
+                .setType(DepartmentType.HR);
+        departmentTypeRepository.save(entity);
+//        DepartmentTypeEntity departmentTypeEntity = departmentTypeRepository.getByType(type)
+//                .orElseThrow(() -> new DepartmentTypeNotFoundException("DepartmentType not found by type = " + type.name()));
         DepartmentEntity departmentEntity = new DepartmentEntity()
                 .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(departmentBean.getTitle())
                 .setDescription(departmentBean.getDescription())
-                .setDepartmentType(departmentTypeEntity);
+                .setDepartmentType(entity);
 
-        return new DepartmentBean(departmentRepository.save(departmentEntity));
+        DepartmentEntity departmentEntity1 = departmentRepository.save(departmentEntity);
+        return new DepartmentBean(departmentEntity1);
     }
 
     public DepartmentBean update(DepartmentBean departmentBean) {
@@ -94,7 +101,8 @@ public class DepartmentService {
 
         departmentEntity
                 .setUpdatedDate(LocalDate.now());
-        return new DepartmentBean(departmentRepository.save(departmentEntity));
+        DepartmentEntity departmentEntity1 = departmentRepository.save(departmentEntity);
+        return new DepartmentBean(departmentEntity1);
     }
 
     public DepartmentBean patch(DepartmentBean employerBean) {
