@@ -11,6 +11,7 @@ import ru.akvine.prorise.service.dto.employer.EmployerBean;
 import ru.akvine.prorise.service.dto.goal.GoalBean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
@@ -27,9 +28,9 @@ public class TaskBean {
     private LocalDate updatedDate;
     @Nullable
     private LocalDate deletedDate;
-    private LocalDate startDate;
+    private LocalDateTime startDate;
     @Nullable
-    private LocalDate endDate;
+    private LocalDateTime endDate;
     private PriorityType priorityType;
     private EmployerBean employerBean;
     private GoalBean goalBean;

@@ -4,11 +4,11 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.Nullable;
 import ru.akvine.prorise.entities.GoalEntity;
-import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.employer.EmployerEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TASK")
@@ -31,11 +31,11 @@ public class TaskEntity {
     private String description;
 
     @Column(name = "START_DATE", nullable = false)
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     @Nullable
     @Column(name = "END_DATE")
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     @Column(name = "PRIORITY_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)

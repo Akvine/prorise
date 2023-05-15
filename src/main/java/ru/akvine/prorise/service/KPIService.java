@@ -7,12 +7,13 @@ import ru.akvine.prorise.repositories.AttendanceRepository;
 import ru.akvine.prorise.repositories.EmployerRepository;
 import ru.akvine.prorise.repositories.TaskRepository;
 import ru.akvine.prorise.service.dto.attendance.AttendanceBean;
-import ru.akvine.prorise.service.dto.attendance.AttendanceTimeStatistics;
+import ru.akvine.prorise.service.dto.attendance.AttendanceStatistics;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
 import ru.akvine.prorise.service.dto.kpi.KPIStatistics;
 import ru.akvine.prorise.service.dto.kpi.KPIStatisticsFilter;
 import ru.akvine.prorise.service.dto.kpi.filter.FilterType;
 import ru.akvine.prorise.service.dto.task.TaskBean;
+import ru.akvine.prorise.service.dto.task.TaskStatistics;
 
 import java.util.List;
 import java.util.Set;
@@ -73,12 +74,11 @@ public class KPIService {
                 .map(AttendanceBean::new)
                 .collect(Collectors.toList());
 
-        AttendanceTimeStatistics attendanceTimeStatistics = kpiStatisticsService.calculateAverageArrivalTime(attendances);
+        AttendanceStatistics attendanceStatistics = kpiStatisticsService.calculateAttendanceStatistics(attendances);
+        TaskStatistics taskStatistics = kpiStatisticsService.calculateTaskStatistics(tasks);
 
         return new KPIStatistics()
-                .setCountCompletedTasks(tasks.size())
-                .setAverageArrivalTime(attendanceTimeStatistics.getAverageArrivalTime())
-                .setAverageDepartureTime(attendanceTimeStatistics.getAverageDepartureTime())
-                .setAverageWorkTime(attendanceTimeStatistics.getAverageWorkTime());
+                .setAttendanceStatistics(attendanceStatistics)
+                .setTaskStatistics(taskStatistics);
     }
 }

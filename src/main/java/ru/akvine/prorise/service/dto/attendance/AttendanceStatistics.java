@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttendanceTimeStatistics {
+public class AttendanceStatistics {
     private LocalDateTime averageArrivalTime;
     private LocalDateTime averageDepartureTime;
     private LocalDateTime averageWorkTime;

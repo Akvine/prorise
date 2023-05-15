@@ -48,6 +48,38 @@ public class DateService {
                 .plusSeconds(totalSeconds / dates.size());
     }
 
+    public LocalDateTime findMaxDateTime(List<LocalDateTime> dates) {
+        if (dates == null || dates.isEmpty()) {
+            return null;
+        }
+
+        LocalDateTime maxDateTime = dates.get(0);
+
+        for (LocalDateTime dateTime : dates) {
+            if (dateTime.isAfter(maxDateTime)) {
+                maxDateTime = dateTime;
+            }
+        }
+
+        return maxDateTime;
+    }
+
+    public LocalDateTime findMinDateTime(List<LocalDateTime> dates) {
+        if (dates == null || dates.isEmpty()) {
+            return null;
+        }
+
+        LocalDateTime minDateTime = dates.get(0);
+
+        for (LocalDateTime dateTime : dates) {
+            if (dateTime.isBefore(minDateTime)) {
+                minDateTime = dateTime;
+            }
+        }
+
+        return minDateTime;
+    }
+
     public List<LocalDateTime> calculateDifference(List<LocalDateTime> startDates, List<LocalDateTime> endDates) {
         List<LocalDateTime> differences = new ArrayList<>();
 
