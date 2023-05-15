@@ -18,8 +18,17 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     @Query("from TaskEntity te " +
             "where " +
-            "te.deleted = false and te.done = true " +
+            "te.deleted = false and te.deletedDate is null " +
+            "and " +
+            "te.done = true " +
             "and " +
             "te.employer.uuid in (:uuids)")
-    List<TaskEntity> findCompletedByEmpoyersUuids(@Param("uuids") Set<String> uuids);
+    List<TaskEntity> findAllCompletedByEmployersUuids(@Param("uuids") Set<String> uuids);
+
+    @Query("from TaskEntity te " +
+            "where " +
+            "te.deleted = false and te.deletedDate is null " +
+            "and " +
+            "te.employer.uuid in (:uuids)")
+    List<TaskEntity> findAllByEmployersUuids(@Param("uuids") Set<String> uuids);
 }

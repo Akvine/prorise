@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TaskStatistics {
     private long countCompletedTasks;
+    private double effectiveness;
     private LocalDateTime averageTaskCompletionTime;
     private LocalDateTime maxTaskCompletionTime;
     private LocalDateTime minTaskCompletionTime;

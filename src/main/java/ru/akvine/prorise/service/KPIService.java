@@ -63,8 +63,13 @@ public class KPIService {
                 .stream()
                 .map(EmployerBean::getUuid)
                 .collect(Collectors.toSet());
-        List<TaskBean> tasks = taskRepository
-                .findCompletedByEmpoyersUuids(employersUuids)
+        List<TaskBean> completedTasks = taskRepository
+                .findAllCompletedByEmployersUuids(employersUuids)
+                .stream()
+                .map(TaskBean::new)
+                .collect(Collectors.toList());
+        List<TaskBean> allTasks = taskRepository
+                .findAllByEmployersUuids(employersUuids)
                 .stream()
                 .map(TaskBean::new)
                 .collect(Collectors.toList());
@@ -75,7 +80,7 @@ public class KPIService {
                 .collect(Collectors.toList());
 
         AttendanceStatistics attendanceStatistics = kpiStatisticsService.calculateAttendanceStatistics(attendances);
-        TaskStatistics taskStatistics = kpiStatisticsService.calculateTaskStatistics(tasks);
+        TaskStatistics taskStatistics = kpiStatisticsService.calculateTaskStatistics(completedTasks, allTasks);
 
         return new KPIStatistics()
                 .setAttendanceStatistics(attendanceStatistics)
