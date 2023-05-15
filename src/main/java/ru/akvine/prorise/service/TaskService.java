@@ -16,6 +16,7 @@ import ru.akvine.prorise.service.dto.task.TaskBean;
 import ru.akvine.prorise.tech.UuidGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,8 +84,8 @@ public class TaskService {
         String description = taskBean.getDescription();
         PriorityType priority = taskBean.getPriorityType();
         StatusType status = taskBean.getStatusType();
-        LocalDate startDate = taskBean.getStartDate();
-        LocalDate endDate = taskBean.getEndDate();
+        LocalDateTime startDate = taskBean.getStartDate();
+        LocalDateTime endDate = taskBean.getEndDate();
 
         if (StringUtils.isNotBlank(title)) {
             taskEntity.setTitle(title);

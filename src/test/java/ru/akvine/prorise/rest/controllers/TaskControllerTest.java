@@ -34,7 +34,7 @@ class TaskControllerTest extends ApiBaseTest {
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("task_title_1"))
                 .andExpect(jsonPath("$.description").value("task_description_1"))
-                .andExpect(jsonPath("$.startDate").value("2023-03-19"))
+                .andExpect(jsonPath("$.startDate").value("2023-03-19T00:00:00"))
                 .andExpect(jsonPath("$.endDate").isEmpty())
                 .andExpect(jsonPath("$.priority").value("MEDIUM"))
                 .andExpect(jsonPath("$.status").value("IN_PROGRESS"))
@@ -57,7 +57,7 @@ class TaskControllerTest extends ApiBaseTest {
         TaskCreateRequest request = new TaskCreateRequest()
                 .setTitle("Some new title")
                 .setDescription("Some new description")
-                .setStartDate(LocalDate.now().toString())
+                .setStartDate(getCurrentLocalDateTime().toString())
                 .setEmployerUuid(Entities.EMPLOYER_UUID_1)
                 .setGoalUuid(Entities.GOAL_UUID_1)
                 .setPriority(PriorityType.MEDIUM.name())
@@ -82,14 +82,14 @@ class TaskControllerTest extends ApiBaseTest {
                 .setUuid(taskUuid)
                 .setTitle("Some new title")
                 .setDescription("Some new description")
-                .setStartDate(LocalDate.now().toString());
+                .setStartDate(getCurrentLocalDateTime().toString());
 
         doPut(Endpoints.TASK_ENDPOINT, request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseStatus").value("SUCCESS"))
                 .andExpect(jsonPath("$.title").value("Some new title"))
                 .andExpect(jsonPath("$.description").value("Some new description"))
-                .andExpect(jsonPath("$.startDate").value(LocalDate.now().toString()))
+                .andExpect(jsonPath("$.startDate").value(getCurrentLocalDateTime().toString()))
                 .andExpect(jsonPath("$.endDate").isEmpty());
     }
 

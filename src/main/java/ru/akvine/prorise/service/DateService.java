@@ -21,7 +21,7 @@ public class DateService {
         if (date == null) {
             return null;
         }
-        return toLocalDate(date, FORMATTER);
+        return toLocalDate(date, LOCAL_DATE_FORMATTER);
     }
 
     @Nullable
@@ -30,6 +30,22 @@ public class DateService {
             return null;
         }
         return LocalDate.parse(date, formatter);
+    }
+
+    @Nullable
+    public LocalDateTime toLocalDateTime(String date) {
+        if (date == null) {
+            return null;
+        }
+        return toLocalDateTime(date, LOCAL_DATE_TIME_FORMATTER);
+    }
+
+    @Nullable
+    public LocalDateTime toLocalDateTime(String date, DateTimeFormatter formatter) {
+        if (date == null) {
+            return null;
+        }
+        return LocalDateTime.parse(date, formatter);
     }
 
     public LocalDateTime calculateAverageTime(List<LocalDateTime> dates) {

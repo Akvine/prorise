@@ -22,7 +22,7 @@ public class AttendanceService {
         EmployerEntity employerEntity = employerService.getEntityByUuid(employerUuid);
 
         AttendanceEntity attendanceEntity = new AttendanceEntity()
-                .setEmployerEntity(employerEntity)
+                .setEmployer(employerEntity)
                 .setDepartureTime(attendanceBean.getDepartureTime())
                 .setArrivalTime(attendanceBean.getArrivalDate());
         AttendanceEntity createdAttendanceEntity = attendanceRepository.save(attendanceEntity);

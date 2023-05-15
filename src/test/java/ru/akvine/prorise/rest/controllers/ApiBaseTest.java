@@ -11,9 +11,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import ru.akvine.prorise.service.constants.DateConstants;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static ru.akvine.prorise.service.constants.DateConstants.LOCAL_DATE_TIME_FORMATTER;
 
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = {
@@ -75,5 +80,12 @@ public class ApiBaseTest {
         }
 
         return mvc.perform(getReq);
+    }
+
+    protected LocalDateTime getCurrentLocalDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = LOCAL_DATE_TIME_FORMATTER;
+        String formattedDateTime = now.format(formatter);
+        return LocalDateTime.parse(formattedDateTime, formatter);
     }
 }

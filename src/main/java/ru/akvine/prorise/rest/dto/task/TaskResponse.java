@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import ru.akvine.prorise.rest.dto.common.SuccessfulResponse;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Accessors(chain = true)
@@ -13,9 +13,9 @@ public class TaskResponse extends SuccessfulResponse {
 
     private String description;
 
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     private String priority;
 
