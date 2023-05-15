@@ -10,7 +10,7 @@ import ru.akvine.prorise.rest.dto.task.TaskListResponse;
 import ru.akvine.prorise.rest.dto.task.TaskResponse;
 import ru.akvine.prorise.rest.dto.task.TaskUpdateRequest;
 import ru.akvine.prorise.service.dto.task.TaskBean;
-import ru.akvine.prorise.tech.DateConverter;
+import ru.akvine.prorise.service.DateService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class TaskConverter {
-    private final DateConverter dateConverter;
+    private final DateService dateService;
 
     public TaskBean convertToTaskBean(TaskCreateRequest request) {
         Preconditions.checkNotNull(request, "taskCreateRequest is null");
@@ -26,8 +26,8 @@ public class TaskConverter {
         return new TaskBean()
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setStartDate(dateConverter.toLocalDate(request.getStartDate()))
-                .setEndDate(dateConverter.toLocalDate(request.getEndDate()))
+                .setStartDate(dateService.toLocalDate(request.getStartDate()))
+                .setEndDate(dateService.toLocalDate(request.getEndDate()))
                 .setPriorityType(PriorityType.safeValueOf(request.getPriority()))
                 .setStatusType(StatusType.safeValueOf(request.getStatus()))
                 .setEmployerUuid(request.getEmployerUuid())
@@ -43,8 +43,8 @@ public class TaskConverter {
                 .setUuid(request.getUuid())
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
-                .setStartDate(dateConverter.toLocalDate(request.getStartDate()))
-                .setEndDate(dateConverter.toLocalDate(request.getEndDate()))
+                .setStartDate(dateService.toLocalDate(request.getStartDate()))
+                .setEndDate(dateService.toLocalDate(request.getEndDate()))
                 .setEmployerUuid(request.getEmployerUuid())
                 .setDone(request.isDone())
                 .setGoalUuid(request.getGoalUuid());

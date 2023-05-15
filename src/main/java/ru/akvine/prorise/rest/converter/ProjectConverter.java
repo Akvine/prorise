@@ -9,16 +9,15 @@ import ru.akvine.prorise.rest.dto.project.ProjectListResponse;
 import ru.akvine.prorise.rest.dto.project.ProjectResponse;
 import ru.akvine.prorise.rest.dto.project.ProjectUpdateRequest;
 import ru.akvine.prorise.service.dto.project.ProjectBean;
-import ru.akvine.prorise.tech.DateConverter;
+import ru.akvine.prorise.service.DateService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class ProjectConverter {
-    private final DateConverter dateConverter;
+    private final DateService dateService;
 
     public ProjectBean convertToProjectBean(ProjectCreateRequest request) {
         Preconditions.checkNotNull(request, "projectCreateRequest is null");
@@ -26,8 +25,8 @@ public class ProjectConverter {
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
                 .setDone(request.isDone())
-                .setStartDate(dateConverter.toLocalDate(request.getStartDate()))
-                .setEndDate(dateConverter.toLocalDate(request.getEndDate()))
+                .setStartDate(dateService.toLocalDate(request.getStartDate()))
+                .setEndDate(dateService.toLocalDate(request.getEndDate()))
                 .setTeamUuid(request.getTeamUuid())
                 .setProjectType(request.getType() == null ? null : ProjectType.valueOf(request.getType()));
     }
@@ -39,8 +38,8 @@ public class ProjectConverter {
                 .setTitle(request.getTitle())
                 .setDescription(request.getDescription())
                 .setDone(request.isDone())
-                .setStartDate(dateConverter.toLocalDate(request.getStartDate()))
-                .setEndDate(dateConverter.toLocalDate(request.getEndDate()))
+                .setStartDate(dateService.toLocalDate(request.getStartDate()))
+                .setEndDate(dateService.toLocalDate(request.getEndDate()))
                 .setTeamUuid(request.getTeamUuid())
                 .setProjectType(request.getType() == null ? null : ProjectType.valueOf(request.getType()));
     }

@@ -9,7 +9,7 @@ import ru.akvine.prorise.rest.dto.employer.EmployerListResponse;
 import ru.akvine.prorise.rest.dto.employer.EmployerResponse;
 import ru.akvine.prorise.rest.dto.employer.EmployerUpdateRequest;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
-import ru.akvine.prorise.tech.DateConverter;
+import ru.akvine.prorise.service.DateService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class EmployerConverter {
-    private final DateConverter dateConverter;
+    private final DateService dateService;
 
     public EmployerBean convertToEmployerBean(EmployerCreateRequest request) {
         Preconditions.checkNotNull(request, "employerCreateRequest is null");
@@ -26,8 +26,8 @@ public class EmployerConverter {
                 .setSecondName(request.getSecondName())
                 .setThirdName(request.getThirdName())
                 .setEmployerType(EmployerType.safeValueOf(request.getEmployerType()))
-                .setEmploymentDate(dateConverter.toLocalDate(request.getEmploymentDate()))
-                .setDismissalDate(dateConverter.toLocalDate(request.getDismissalDate()))
+                .setEmploymentDate(dateService.toLocalDate(request.getEmploymentDate()))
+                .setDismissalDate(dateService.toLocalDate(request.getDismissalDate()))
                 .setTeamUuid(request.getTeamUuid());
     }
 
