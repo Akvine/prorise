@@ -321,3 +321,17 @@ CREATE TABLE TRAINING
 );
 CREATE SEQUENCE TRAINING_ID_SEQUENCE START WITH 1 INCREMENT BY 1000;
 --rollback not required
+
+--changeset lymar-sa:RISE-2-1
+--preconditions onFail:MARK_RAN onError:HALT onUpdateSql:FAIL
+--precondition-sql-check expectedResult:0 select count(*) from information_schema.tables where table_name = 'DEPARTMENT_TYPE'
+INSERT INTO  DEPARTMENT_TYPE (ID, UUID, TYPE, CODE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE) VALUES (1, 'department_type_uuid_1', 'IT', 'department.type.it', 'IT department', '2022-05-02 09:17:40.431', false, null, null);
+INSERT INTO  DEPARTMENT_TYPE (ID, UUID, TYPE, CODE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE) VALUES (2, 'department_type_uuid_2', 'FINANCIAL', 'department.type.financial', 'Financial department', '2022-05-02 09:17:40.431', false, null, null);
+INSERT INTO  DEPARTMENT_TYPE (ID, UUID, TYPE, CODE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE) VALUES (3, 'department_type_uuid_3', 'HR', 'department.type.hr', 'HR department', '2022-05-02 09:17:40.431', false, null, null);
+INSERT INTO  DEPARTMENT_TYPE (ID, UUID, TYPE, CODE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE) VALUES (4, 'department_type_uuid_4', 'MARKETING', 'department.type.marketing', 'Marketing department', '2022-05-02 09:17:40.431', false, null, null);
+INSERT INTO  DEPARTMENT_TYPE (ID, UUID, TYPE, CODE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE) VALUES (5, 'department_type_uuid_5', 'SALES', 'department.type.sales', 'Sales department', '2022-05-02 09:17:40.431', false, null, null);
+INSERT INTO  DEPARTMENT (ID, UUID, TITLE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE, DEPARTMENT_TYPE_ID) VALUES (1, 'department_uuid_1', 'IT Department', 'Software development and maintenance', '2022-05-02 09:17:40.431', false, null, null, 1);
+INSERT INTO  DEPARTMENT (ID, UUID, TITLE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE, DEPARTMENT_TYPE_ID) VALUES (2, 'department_uuid_2', 'Financial Department', 'Finance Department', '2022-05-02 09:17:40.431', false, null, null, 2);
+INSERT INTO  DEPARTMENT (ID, UUID, TITLE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE, DEPARTMENT_TYPE_ID) VALUES (3, 'department_uuid_3', 'HR Department', 'Hiring employees', '2022-05-02 09:17:40.431', false, null, null, 3);
+INSERT INTO  DEPARTMENT (ID, UUID, TITLE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE, DEPARTMENT_TYPE_ID) VALUES (4, 'department_uuid_4', 'Marketing Department', 'Marketing', '2022-05-02 09:17:40.431', false, null, null, 4);
+INSERT INTO  DEPARTMENT (ID, UUID, TITLE, DESCRIPTION, CREATED_DATE, IS_DELETED, DELETED_DATE,  UPDATED_DATE, DEPARTMENT_TYPE_ID) VALUES (5, 'department_uuid_5', 'Sales Department', 'Sale of goods and turnover', '2022-05-02 09:17:40.431', false, null, null, 5);
