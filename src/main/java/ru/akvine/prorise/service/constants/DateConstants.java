@@ -29,4 +29,6 @@ public class DateConstants {
     public static final int UTC_UNIX_EPOCH_MINUTE_START = 0;
     public static final int UTC_UNIX_EPOCH_SECOND_START = 0;
 
+    public static final int CENTURY = 100;
+
 }

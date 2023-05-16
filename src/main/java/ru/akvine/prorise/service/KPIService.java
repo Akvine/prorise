@@ -15,6 +15,7 @@ import ru.akvine.prorise.service.dto.kpi.filter.FilterType;
 import ru.akvine.prorise.service.dto.task.TaskBean;
 import ru.akvine.prorise.service.dto.task.TaskStatistics;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,46 +31,20 @@ public class KPIService {
     public KPIStatistics getKPI(KPIStatisticsFilter kpiStatisticsFilter) {
         Preconditions.checkNotNull(kpiStatisticsFilter, "kpiStatisticsFilter is null");
 
-        FilterType filterType = kpiStatisticsFilter.getFilterType();
-        List<EmployerBean> employers;
-        if (filterType == FilterType.DEPARTMENT) {
-            String title = kpiStatisticsFilter.getDepartmentFilter().getTitle();
-            String type = kpiStatisticsFilter.getDepartmentFilter().getType();
-            employers = employerRepository
-                    .findByDepartmentTitleOrType(title, type)
-                    .stream()
-                    .map(EmployerBean::new)
-                    .collect(Collectors.toList());
-        } else if (filterType == FilterType.TEAM) {
-            String title = kpiStatisticsFilter.getTeamFilter().getTitle();
-            employers = employerRepository
-                    .findByTeamTitle(title)
-                    .stream()
-                    .map(EmployerBean::new)
-                    .collect(Collectors.toList());
-        } else {
-            String uuid = kpiStatisticsFilter.getEmployerFilter().getUuid();
-            String firstName = kpiStatisticsFilter.getEmployerFilter().getFirstName();
-            String secondName = kpiStatisticsFilter.getEmployerFilter().getSecondName();
-            String thirdName = kpiStatisticsFilter.getEmployerFilter().getThirdName();
-            employers = employerRepository
-                    .findByUuidOrFirstNameOrSecondNameOrThirdName(uuid, firstName, secondName, thirdName)
-                    .stream()
-                    .map(EmployerBean::new)
-                    .collect(Collectors.toList());
-        }
-
+        LocalDateTime startDate = kpiStatisticsFilter.getStartDate();
+        LocalDateTime endDate = kpiStatisticsFilter.getEndDate();
+        List<EmployerBean> employers = getEmployers(kpiStatisticsFilter);
         Set<String> employersUuids = employers
                 .stream()
                 .map(EmployerBean::getUuid)
                 .collect(Collectors.toSet());
         List<TaskBean> completedTasks = taskRepository
-                .findAllCompletedByEmployersUuids(employersUuids)
+                .findAllCompletedByEmployersUuidsWithDateRange(employersUuids, startDate, endDate)
                 .stream()
                 .map(TaskBean::new)
                 .collect(Collectors.toList());
         List<TaskBean> allTasks = taskRepository
-                .findAllByEmployersUuids(employersUuids)
+                .findAllByEmployersUuidsWithDateRange(employersUuids, startDate, endDate)
                 .stream()
                 .map(TaskBean::new)
                 .collect(Collectors.toList());
@@ -85,5 +60,35 @@ public class KPIService {
         return new KPIStatistics()
                 .setAttendanceStatistics(attendanceStatistics)
                 .setTaskStatistics(taskStatistics);
+    }
+
+    private List<EmployerBean> getEmployers(KPIStatisticsFilter kpiStatisticsFilter) {
+        FilterType filterType = kpiStatisticsFilter.getFilterType();
+        if (filterType == FilterType.DEPARTMENT) {
+            String title = kpiStatisticsFilter.getDepartmentFilter().getTitle();
+            String type = kpiStatisticsFilter.getDepartmentFilter().getType();
+            return employerRepository
+                    .findByDepartmentTitleOrType(title, type)
+                    .stream()
+                    .map(EmployerBean::new)
+                    .collect(Collectors.toList());
+        } else if (filterType == FilterType.TEAM) {
+            String title = kpiStatisticsFilter.getTeamFilter().getTitle();
+            return employerRepository
+                    .findByTeamTitle(title)
+                    .stream()
+                    .map(EmployerBean::new)
+                    .collect(Collectors.toList());
+        } else {
+            String uuid = kpiStatisticsFilter.getEmployerFilter().getUuid();
+            String firstName = kpiStatisticsFilter.getEmployerFilter().getFirstName();
+            String secondName = kpiStatisticsFilter.getEmployerFilter().getSecondName();
+            String thirdName = kpiStatisticsFilter.getEmployerFilter().getThirdName();
+            return employerRepository
+                    .findByUuidOrFirstNameOrSecondNameOrThirdName(uuid, firstName, secondName, thirdName)
+                    .stream()
+                    .map(EmployerBean::new)
+                    .collect(Collectors.toList());
+        }
     }
 }

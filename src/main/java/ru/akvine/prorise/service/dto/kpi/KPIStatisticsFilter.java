@@ -10,6 +10,7 @@ import ru.akvine.prorise.service.dto.kpi.filter.FilterType;
 import ru.akvine.prorise.service.dto.kpi.filter.TeamFilter;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -17,6 +18,12 @@ import javax.validation.constraints.NotBlank;
 public class KPIStatisticsFilter {
     @NotBlank
     private FilterType filterType;
+
+    @Nullable
+    private LocalDateTime startDate;
+
+    @Nullable
+    private LocalDateTime endDate;
 
     @Nullable
     private EmployerFilter employerFilter;

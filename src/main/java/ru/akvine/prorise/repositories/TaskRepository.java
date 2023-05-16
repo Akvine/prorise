@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.akvine.prorise.entities.task.TaskEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,13 +23,21 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
             "and " +
             "te.done = true " +
             "and " +
-            "te.employer.uuid in (:uuids)")
-    List<TaskEntity> findAllCompletedByEmployersUuids(@Param("uuids") Set<String> uuids);
+            "te.employer.uuid in (:uuids) " +
+            "and " +
+            "te.startDate >= :startDate and te.endDate <= :endDate")
+    List<TaskEntity> findAllCompletedByEmployersUuidsWithDateRange(@Param("uuids") Set<String> uuids,
+                                                                   @Param("startDate") LocalDateTime startDate,
+                                                                   @Param("endDate") LocalDateTime endDate);
 
     @Query("from TaskEntity te " +
             "where " +
             "te.deleted = false and te.deletedDate is null " +
             "and " +
-            "te.employer.uuid in (:uuids)")
-    List<TaskEntity> findAllByEmployersUuids(@Param("uuids") Set<String> uuids);
+            "te.employer.uuid in (:uuids) " +
+            "and " +
+            "te.startDate >= :startDate and te.endDate <= :endDate")
+    List<TaskEntity> findAllByEmployersUuidsWithDateRange(@Param("uuids") Set<String> uuids,
+                                                          @Param("startDate") LocalDateTime startDate,
+                                                          @Param("endDate") LocalDateTime endDate);
 }

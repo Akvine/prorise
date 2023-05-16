@@ -11,11 +11,29 @@ import ru.akvine.prorise.service.dto.kpi.filter.EmployerFilter;
 import ru.akvine.prorise.service.dto.kpi.filter.FilterType;
 import ru.akvine.prorise.service.dto.kpi.filter.TeamFilter;
 
+import java.time.LocalDateTime;
+
+import static ru.akvine.prorise.service.constants.DateConstants.CENTURY;
+
 @Component
 public class KPIConverter {
     public KPIStatisticsFilter convertToKPIStatisticsStart(GetKPIRequest getKPIRequest) {
         Preconditions.checkNotNull(getKPIRequest, "getKPIRequest is null");
-        return buildKPIStatisticsStart(getKPIRequest);
+        KPIStatisticsFilter kpiStatisticsFilter = buildKPIStatisticsStart(getKPIRequest);
+
+        LocalDateTime startDate = getKPIRequest.getStartDate();
+        LocalDateTime endDate = getKPIRequest.getEndDate();
+
+        if (startDate == null) {
+            startDate = LocalDateTime.now().minusYears(CENTURY);
+        }
+        if (endDate == null) {
+            endDate = LocalDateTime.now().plusYears(CENTURY);
+        }
+
+        return kpiStatisticsFilter
+                .setStartDate(startDate)
+                .setEndDate(endDate);
     }
 
     public GetKPIResponse convertToGetKPIResponse(KPIStatistics kpiStatistics) {
