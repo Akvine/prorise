@@ -13,7 +13,7 @@ import ru.akvine.prorise.entities.task.TaskEntity;
 import ru.akvine.prorise.exceptions.TaskEntityNotFoundException;
 import ru.akvine.prorise.repositories.TaskRepository;
 import ru.akvine.prorise.service.dto.task.TaskBean;
-import ru.akvine.prorise.tech.UuidGenerator;
+import ru.akvine.prorise.utils.UuidGeneratorUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final EmployerService employerService;
     private final GoalService goalService;
-    private final UuidGenerator uuidGenerator;
+    private final UuidGeneratorUtils uuidGeneratorUtils;
 
     @Value("${uuid.generator.length}")
     private int uuidGeneratorLength;
@@ -62,7 +62,7 @@ public class TaskService {
         GoalEntity goalEntity = goalService.getEntityByUuid(taskBean.getGoalUuid());
 
         TaskEntity taskEntity = new TaskEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(taskBean.getTitle())
                 .setDescription(taskBean.getDescription())
                 .setDone(taskBean.isDone())

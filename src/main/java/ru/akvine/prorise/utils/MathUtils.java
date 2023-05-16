@@ -1,9 +1,9 @@
-package ru.akvine.prorise.tech;
+package ru.akvine.prorise.utils;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class MathHelper {
+public class MathUtils {
     public double round(double value, int accuracy) {
         if (accuracy < 0) {
             throw new IllegalArgumentException("Accuracy can't be less than 0!");

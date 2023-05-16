@@ -1,21 +1,17 @@
 package ru.akvine.prorise.service;
 
 import com.google.common.base.Preconditions;
-import liquibase.hub.model.Project;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.akvine.prorise.entities.GoalEntity;
 import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.entities.project.ProjectType;
-import ru.akvine.prorise.exceptions.GoalEntityNotFoundException;
 import ru.akvine.prorise.exceptions.ProjectEntityNotFoundException;
 import ru.akvine.prorise.repositories.ProjectRepository;
-import ru.akvine.prorise.service.dto.goal.GoalBean;
 import ru.akvine.prorise.service.dto.project.ProjectBean;
-import ru.akvine.prorise.tech.UuidGenerator;
+import ru.akvine.prorise.utils.UuidGeneratorUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,7 +22,7 @@ import java.util.stream.Collectors;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final TeamService teamService;
-    private final UuidGenerator uuidGenerator;
+    private final UuidGeneratorUtils uuidGeneratorUtils;
 
     @Value("${uuid.generator.length}")
     private int uuidGeneratorLength;
@@ -59,7 +55,7 @@ public class ProjectService {
 
         TeamEntity teamEntity = teamService.getEntityByUuid(projectBean.getTeamUuid());
         ProjectEntity projectEntity = new ProjectEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(projectBean.getTitle())
                 .setDescription(projectBean.getDescription())
                 .setTeam(teamEntity)

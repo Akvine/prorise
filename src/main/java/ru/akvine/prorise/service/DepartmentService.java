@@ -8,16 +8,12 @@ import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.department.DepartmentEntity;
 import ru.akvine.prorise.entities.department.DepartmentType;
 import ru.akvine.prorise.entities.department.DepartmentTypeEntity;
-import ru.akvine.prorise.entities.employer.EmployerEntity;
 import ru.akvine.prorise.exceptions.DepartmentNotFoundException;
 import ru.akvine.prorise.exceptions.DepartmentTypeNotFoundException;
-import ru.akvine.prorise.exceptions.EmployerEntityNotFoundException;
 import ru.akvine.prorise.repositories.DepartmentRepository;
 import ru.akvine.prorise.repositories.DepartmentTypeRepository;
-import ru.akvine.prorise.repositories.EmployerRepository;
 import ru.akvine.prorise.service.dto.department.DepartmentBean;
-import ru.akvine.prorise.service.dto.employer.EmployerBean;
-import ru.akvine.prorise.tech.UuidGenerator;
+import ru.akvine.prorise.utils.UuidGeneratorUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,7 +24,7 @@ import java.util.stream.Collectors;
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
     private final DepartmentTypeRepository departmentTypeRepository;
-    private final UuidGenerator uuidGenerator;
+    private final UuidGeneratorUtils uuidGeneratorUtils;
 
     @Value("${uuid.generator.length}")
     private int uuidGeneratorLength;
@@ -60,7 +56,7 @@ public class DepartmentService {
 
         DepartmentType type = departmentBean.getType();
         DepartmentTypeEntity entity = new DepartmentTypeEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setDescription("some description")
                 .setCode("some code")
                 .setType(DepartmentType.HR);
@@ -68,7 +64,7 @@ public class DepartmentService {
 //        DepartmentTypeEntity departmentTypeEntity = departmentTypeRepository.getByType(type)
 //                .orElseThrow(() -> new DepartmentTypeNotFoundException("DepartmentType not found by type = " + type.name()));
         DepartmentEntity departmentEntity = new DepartmentEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(departmentBean.getTitle())
                 .setDescription(departmentBean.getDescription())
                 .setDepartmentType(entity);

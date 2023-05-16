@@ -10,7 +10,7 @@ import ru.akvine.prorise.entities.project.ProjectEntity;
 import ru.akvine.prorise.exceptions.GoalEntityNotFoundException;
 import ru.akvine.prorise.repositories.GoalRepository;
 import ru.akvine.prorise.service.dto.goal.GoalBean;
-import ru.akvine.prorise.tech.UuidGenerator;
+import ru.akvine.prorise.utils.UuidGeneratorUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class GoalService {
     private final GoalRepository goalRepository;
     private final ProjectService projectService;
-    private final UuidGenerator uuidGenerator;
+    private final UuidGeneratorUtils uuidGeneratorUtils;
 
     @Value("${uuid.generator.length}")
     private int uuidGeneratorLength;
@@ -54,7 +54,7 @@ public class GoalService {
 
         ProjectEntity projectEntity = projectService.getEntityByUuid(goalBean.getProjectUuid());
         GoalEntity goalEntity = new GoalEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(goalBean.getTitle())
                 .setDescription(goalBean.getDescription())
                 .setProject(projectEntity);

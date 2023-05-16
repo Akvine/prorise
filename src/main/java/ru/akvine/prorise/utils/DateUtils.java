@@ -1,4 +1,4 @@
-package ru.akvine.prorise.service;
+package ru.akvine.prorise.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +15,7 @@ import static ru.akvine.prorise.service.constants.DateConstants.*;
 
 @Service
 @RequiredArgsConstructor
-public class DateService {
+public class DateUtils {
     @Nullable
     public LocalDate toLocalDate(String date) {
         if (date == null) {

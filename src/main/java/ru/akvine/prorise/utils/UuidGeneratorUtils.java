@@ -1,11 +1,11 @@
-package ru.akvine.prorise.tech;
+package ru.akvine.prorise.utils;
 
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class UuidGenerator {
+public class UuidGeneratorUtils {
     public String generate() {
         return UUID.randomUUID().toString().toUpperCase();
     }

@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.akvine.prorise.entities.TeamEntity;
 import ru.akvine.prorise.entities.department.DepartmentEntity;
-import ru.akvine.prorise.entities.task.TaskEntity;
-import ru.akvine.prorise.exceptions.TaskEntityNotFoundException;
 import ru.akvine.prorise.exceptions.TeamEntityNotFoundException;
 import ru.akvine.prorise.repositories.TeamRepository;
-import ru.akvine.prorise.service.dto.task.TaskBean;
 import ru.akvine.prorise.service.dto.team.TeamBean;
-import ru.akvine.prorise.tech.UuidGenerator;
+import ru.akvine.prorise.utils.UuidGeneratorUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +21,7 @@ import java.util.stream.Collectors;
 public class TeamService {
     private final TeamRepository teamRepository;
     private final DepartmentService departmentService;
-    private final UuidGenerator uuidGenerator;
+    private final UuidGeneratorUtils uuidGeneratorUtils;
 
     @Value("${uuid.generator.length}")
     private int uuidGeneratorLength;
@@ -59,7 +56,7 @@ public class TeamService {
         DepartmentEntity departmentEntity = departmentService.getEntityByUuid(teamBean.getDepartmentUuid());
 
         TeamEntity teamEntity = new TeamEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setTitle(teamBean.getTitle())
                 .setDescription(teamBean.getDescription())
                 .setDepartmentEntity(departmentEntity);

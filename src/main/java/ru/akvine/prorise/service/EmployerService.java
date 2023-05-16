@@ -11,7 +11,7 @@ import ru.akvine.prorise.entities.employer.EmployerType;
 import ru.akvine.prorise.exceptions.EmployerEntityNotFoundException;
 import ru.akvine.prorise.repositories.EmployerRepository;
 import ru.akvine.prorise.service.dto.employer.EmployerBean;
-import ru.akvine.prorise.tech.UuidGenerator;
+import ru.akvine.prorise.utils.UuidGeneratorUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +27,7 @@ public class EmployerService {
 
     private final EmployerRepository employerRepository;
     private final TeamService teamService;
-    private final UuidGenerator uuidGenerator;
+    private final UuidGeneratorUtils uuidGeneratorUtils;
 
     public EmployerBean getByUuid(String uuid) {
         Preconditions.checkNotNull(uuid, "Uuid is null");
@@ -55,7 +55,7 @@ public class EmployerService {
         TeamEntity teamEntity = teamService.getEntityByUuid(employerBean.getTeamUuid());
 
         EmployerEntity employerEntity = new EmployerEntity()
-                .setUuid(uuidGenerator.generate(uuidGeneratorLength, uuidGeneratorTarget))
+                .setUuid(uuidGeneratorUtils.generate(uuidGeneratorLength, uuidGeneratorTarget))
                 .setFirstName(employerBean.getFirstName())
                 .setSecondName(employerBean.getSecondName())
                 .setThirdName(employerBean.getThirdName())
