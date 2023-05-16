@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class TaskStatistics {
     private long countCompletedTasks;
     private double effectiveness;
-    private LocalDateTime averageTaskCompletionTime;
-    private LocalDateTime maxTaskCompletionTime;
-    private LocalDateTime minTaskCompletionTime;
+    private LocalTime averageTaskCompletionTime;
+    private LocalTime maxTaskCompletionTime;
+    private LocalTime minTaskCompletionTime;
 }

@@ -1,6 +1,7 @@
 package ru.akvine.prorise.service.constants;
 
 
+import java.time.LocalDateTime;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -21,13 +22,21 @@ public class DateConstants {
             .withResolverStyle(ResolverStyle.STRICT);
     public static final DateTimeFormatter LOCAL_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(LOCAL_DATE_TIME_FORMAT);
 
-
     public static final int UTC_UNIX_EPOCH_YEAR_START = 1970;
     public static final int UTC_UNIX_EPOCH_MONTH_START = 1;
-    public static final int UTC_UNIX_EPOCH_DAY_OF_MONTH_START = 1;
+    public static final int UTC_UNIX_EPOCH_DAY_START = 1;
     public static final int UTC_UNIX_EPOCH_HOUR_START = 0;
     public static final int UTC_UNIX_EPOCH_MINUTE_START = 0;
     public static final int UTC_UNIX_EPOCH_SECOND_START = 0;
+
+    public static final LocalDateTime UNIX_EPOCH_TIME = LocalDateTime.of(
+            UTC_UNIX_EPOCH_YEAR_START,
+            UTC_UNIX_EPOCH_MONTH_START,
+            UTC_UNIX_EPOCH_DAY_START,
+            UTC_UNIX_EPOCH_HOUR_START,
+            UTC_UNIX_EPOCH_MINUTE_START,
+            UTC_UNIX_EPOCH_SECOND_START
+    );
 
     public static final int CENTURY = 100;
 

@@ -11,6 +11,7 @@ import ru.akvine.prorise.utils.DateUtils;
 import ru.akvine.prorise.utils.MathUtils;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +26,9 @@ public class KPIStatisticsService {
         List<LocalDateTime> arrivalDates = attendances.stream().map(AttendanceBean::getArrivalDate).collect(Collectors.toList());
         List<LocalDateTime> departureDates = attendances.stream().map(AttendanceBean::getDepartureTime).collect(Collectors.toList());
 
-        LocalDateTime averageArrivalTime = dateUtils.calculateAverageTime(arrivalDates);
-        LocalDateTime averageDepartureTime = dateUtils.calculateAverageTime(departureDates);
-        LocalDateTime averageWorkTime = dateUtils.calculateAverageTime(dateUtils.calculateDifference(arrivalDates, departureDates));
+        LocalTime averageArrivalTime = dateUtils.calculateAverageTime(arrivalDates).toLocalTime();
+        LocalTime averageDepartureTime = dateUtils.calculateAverageTime(departureDates).toLocalTime();
+        LocalTime averageWorkTime = dateUtils.calculateAverageTime(dateUtils.calculateDifference(arrivalDates, departureDates)).toLocalTime();
 
         return new AttendanceStatistics(averageArrivalTime, averageDepartureTime, averageWorkTime);
     }
@@ -42,9 +43,9 @@ public class KPIStatisticsService {
         long completedTasksCount = completedTasks.size();
         long allTasksCount = allTasks.size();
         double effectiveness = mathUtils.round(completedTasksCount / allTasksCount, 3);
-        LocalDateTime averageTaskCompletionTime = dateUtils.calculateAverageTime(tasksCompletionsTimes);
-        LocalDateTime maxTaskCompletionTime = dateUtils.findMaxDateTime(tasksCompletionsTimes);
-        LocalDateTime minTaskCompletionTime = dateUtils.findMinDateTime(tasksCompletionsTimes);
+        LocalTime averageTaskCompletionTime = dateUtils.calculateAverageTime(tasksCompletionsTimes).toLocalTime();
+        LocalTime maxTaskCompletionTime = dateUtils.findMaxDateTime(tasksCompletionsTimes).toLocalTime();
+        LocalTime minTaskCompletionTime = dateUtils.findMinDateTime(tasksCompletionsTimes).toLocalTime();
 
         return new TaskStatistics(
                 completedTasksCount,

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AttendanceStatistics {
-    private LocalDateTime averageArrivalTime;
-    private LocalDateTime averageDepartureTime;
-    private LocalDateTime averageWorkTime;
+    private LocalTime averageArrivalTime;
+    private LocalTime averageDepartureTime;
+    private LocalTime averageWorkTime;
 }

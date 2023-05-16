@@ -1,5 +1,6 @@
 package ru.akvine.prorise.utils;
 
+import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
@@ -49,18 +50,17 @@ public class DateUtils {
     }
 
     public LocalDateTime calculateAverageTime(List<LocalDateTime> dates) {
+        Preconditions.checkNotNull(dates, "dates is null");
         long totalSeconds = dates
                 .stream()
                 .mapToLong(date -> date.toLocalTime().toSecondOfDay())
                 .sum();
 
-        return LocalDateTime.of(
-                UTC_UNIX_EPOCH_YEAR_START,
-                UTC_UNIX_EPOCH_MONTH_START,
-                UTC_UNIX_EPOCH_DAY_OF_MONTH_START,
-                UTC_UNIX_EPOCH_HOUR_START,
-                UTC_UNIX_EPOCH_MINUTE_START,
-                UTC_UNIX_EPOCH_SECOND_START)
+        if (dates.isEmpty()) {
+            return UNIX_EPOCH_TIME;
+        }
+
+        return UNIX_EPOCH_TIME
                 .plusSeconds(totalSeconds / dates.size());
     }
 
