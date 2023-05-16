@@ -13,6 +13,6 @@ public class CommonErrorCodes {
     public interface Validation {
         String UUID_PRESENT = "uuid.present.error";
         String UUID_NOT_PRESENT = "uuid.not.present.error";
-        String KPI_NOT_FOUND = "kpi.notFound.error";
+        String INCORRECT_DATE_RANGE = "incorrect.dateRange.error";
     }
 }
